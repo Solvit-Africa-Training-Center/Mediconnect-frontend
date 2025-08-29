@@ -4,11 +4,14 @@ const Header =()=>{
 
 
     return (
-        <div className="h-full">
-            <div>
-                Mediconnect
+        <div className="flex justify-between">
+                <div className="flex">
+                    <h1>Mediconnect</h1>
+                </div>
+                <div>
+                    <img src="" alt=""/>
+                </div>
             </div>
-        </div>
     )
 }
 

@@ -1,5 +1,7 @@
+
 import { BrowserRouter } from "react-router-dom"
 import AppRoutes from "./Routes/Approutes"
+
 function App() {
   
 
@@ -8,7 +10,6 @@ function App() {
         <BrowserRouter>
           <AppRoutes/>
         </BrowserRouter>
-      
    )
 }
 

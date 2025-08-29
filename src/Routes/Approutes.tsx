@@ -8,7 +8,6 @@ const AppRoutes =()=>{
         <Routes>
             <Route path="/" element={<Homepage/>}/>         
         </Routes>
-
     )
 }
 

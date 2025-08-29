@@ -1,14 +1,10 @@
-
+import Header from "../components/Header"
 const Homepage=()=>{
 
     return(
+        
         <div className="h-full">
-            <div className="flex">
-                <h1>Mediconnect</h1>
-            </div>
-            <div>
-                Login
-            </div>
+            <Header/>
         </div>
     )
 }
