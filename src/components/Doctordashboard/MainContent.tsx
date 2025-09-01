@@ -12,7 +12,7 @@ const MainContent = () => {
 
   return (
     <main
-      className={`mt-20 p-6 bg-slate-100 min-h-screen transition-all duration-300 ${isCollapsed ? "ml-16" : "ml-64"}`}
+      className={`mt-20 p-6  bg-purple-50 min-h-screen transition-all duration-300 ${isCollapsed ? "ml-16" : "ml-64"}`}
     >
       <Routes>
         <Route path="/doctor-dashboard" element={<DashboardContent />} />

@@ -1,15 +1,34 @@
+import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
+import Sidebar from "../components/Doctordashboard/Sidebar"
+import Header from "../components/Doctordashboard/Header"
+import PrescriptionHeader from "../components/prescriptionhistory/PrescriptionHeader"
+import PrescriptionFilters from "../components/prescriptionhistory/PrescriptionFilters"
+import PrescriptionTable from "../components/prescriptionhistory/PrescriptionTable"
+
+const PrescriptionHistoryContent = () => {
+  const { isCollapsed } = useSidebar()
+
+  return (
+    <div className="min-h-screen  bg-purple-50">
+      <Sidebar />
+      <Header />
+
+      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "pl-20" : "pl-70"}`}>
+        <div className="space-y-6">
+          <PrescriptionHeader />
+          <PrescriptionFilters />
+          <PrescriptionTable />
+        </div>
+      </main>
+    </div>
+  )
+}
+
 const PrescriptionHistory = () => {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-semibold text-gray-900">Prescription History</h2>
-        <p className="text-gray-600">Review past prescriptions and medical history</p>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-sm">
-        <p className="text-gray-500">Prescription history will be implemented here...</p>
-      </div>
-    </div>
+    <SidebarProvider>
+      <PrescriptionHistoryContent />
+    </SidebarProvider>
   )
 }
 
