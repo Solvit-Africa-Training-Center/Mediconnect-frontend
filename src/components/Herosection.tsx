@@ -25,7 +25,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2 transition-colors">
+              <button className="bg-gradient-medical hover:bg-blue-300 text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2 transition-colors">
                 <span className="flex gap-1.5"><QrCode/> Access Dashboard</span>
               </button>
               <button className="border border-gray-300 hover:border-gray-400 text-blue-500 px-6 py-3 rounded-lg 
@@ -35,13 +35,13 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm flex items-center space-x-1">
+              <span className=" text-green-700 text-sm">
                 <span className="flex items-center place-content-center gap-1"><CircleCheckBig color="green"/> WHO Certified</span>
               </span>
-              <span className="bg-blue-100 text-green-700 px-3 py-1 rounded-full text-sm flex items-center space-x-1">
+              <span className=" text-green-700 ">
                 <span className="flex justify-center align-middle items-center"><Shield/> HIPAA Compliant</span>
               </span>
-              <span className="bg-purple-100 text-green-700 px-3 py-1 rounded-full text-sm flex items-center space-x-1">
+              <span className=" text-green-700">
                 <span>AI-Powered</span>
               </span>
             </div>
@@ -50,13 +50,13 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/images/medical-hero.png"
+                src="welcome-image.jpg"
                 alt="Medical professionals using digital technology"
-                className="w-full h-96 object-cover"
+                className="w-full h-120 object-cover"
               />
             </div>
 
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-6 ">
+            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-6 opacity-92 ">
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center  bg-blue-50 rounded-xl px-2 pt-1 pb-1">
                   <div className="text-2xl font-medium text-cyan-500">100+</div>
