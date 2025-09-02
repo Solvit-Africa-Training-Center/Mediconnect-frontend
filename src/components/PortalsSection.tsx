@@ -1,5 +1,3 @@
-
-
 const PortalsSection = () => {
   const portals = [
     {
@@ -21,17 +19,20 @@ const PortalsSection = () => {
   ]
 
   return (
-    <section className="py-25 bg-gray-50 ">
+    <section className="py-25 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-8">
           {portals.map((portal, index) => (
-            <div key={index} className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow ">
+            <div
+              key={index}
+              className="bg-card rounded p-8 shadow-card hover:shadow-float transition-smooth"
+            >
               <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-xl flex items-center justify-center mx-auto">
-                  <span className="text-2xl">{portal.icon}</span>
+                <div className="w-16 h-16 bg-gradient-medical rounded-xl flex items-center justify-center mx-auto">
+                  <span className="text-2xl text-primary-foreground">{portal.icon}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{portal.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{portal.description}</p>
+                <h3 className="text-xl font-semibold text-card-foreground">{portal.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{portal.description}</p>
               </div>
             </div>
           ))}

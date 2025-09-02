@@ -52,7 +52,7 @@ const HeroSection = () => {
               <img
                 src="welcome-image.jpg"
                 alt="Medical professionals using digital technology"
-                className="w-full h-120 object-cover"
+                className="w-full h-100 object-cover"
               />
             </div>
 
