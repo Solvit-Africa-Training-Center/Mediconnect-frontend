@@ -2,7 +2,7 @@ import { Shield, LogIn } from "lucide-react"
 
 const Header = () => {
   const handleLoginClick = () => {
-    // Handle user login
+
     console.log('Redirecting to login page...')
   }
 
