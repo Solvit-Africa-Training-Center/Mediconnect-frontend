@@ -1,10 +1,10 @@
+import { useContext } from "react"
+import LoginContext from "../hooks/LoginContext"
 import { Shield, LogIn } from "lucide-react"
 
 const Header = () => {
-  const handleLoginClick = () => {
 
-    console.log('Redirecting to login page...')
-  }
+  const {handleLoginClick} = useContext(LoginContext)
 
   return (
     <header className="bg-card text-card-foreground shadow-card border-b border-muted">
