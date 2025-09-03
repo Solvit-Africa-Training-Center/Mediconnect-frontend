@@ -1,10 +1,12 @@
 import { Route, Routes } from "react-router-dom"
 import Homepage from "../pages/Homepage"
-import DoctorDashboard from "../pages/DoctorDashboard"
-import CreatePrescription from "../pages/CreatePrescription"
-import PatientRecords from "../pages/PatientRecords"
-import PrescriptionHistory from "../pages/PrescriptionHistory"
-import Settings from "../pages/Settings"
+import DoctorDashboard from "../pages/doctorDashboard/DoctorDashboard"
+import CreatePrescription from "../pages/doctorDashboard/CreatePrescription"
+import PatientRecords from "../pages/doctorDashboard/PatientRecords"
+import PrescriptionHistory from "../pages/doctorDashboard/PrescriptionHistory"
+import Settings from "../pages/doctorDashboard/Settings"
+import PatientLanding from "../pages/patient/PatientLanding"
+import PatientDashboard from "../pages/patient/PatientDashboard"
 
 const AppRoutes = () => {
   return (
@@ -16,6 +18,9 @@ const AppRoutes = () => {
       <Route path="/prescription-history" element={<PrescriptionHistory />} />
       <Route path="/notifications" element={<DoctorDashboard />} />
       <Route path="/settings" element={<Settings />} />
+
+       <Route path="/patient" element={<PatientLanding />} />
+      <Route path="/patient/*" element={<PatientDashboard />} />
     </Routes>
   )
 }

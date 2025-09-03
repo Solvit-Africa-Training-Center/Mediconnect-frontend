@@ -1,10 +1,10 @@
-import PatientSearch from "../components/createprescription/PatientSearch"
-import DiagnosisNotes from "../components/createprescription/DiagnosisNotes"
-import PrescriptionMedicines from "../components/createprescription/PrescriptionMedicines"
-import PrescriptionActions from "../components/createprescription/PrescriptionActions"
-import Sidebar from "../components/Doctordashboard/Sidebar"
-import Header from "../components/Doctordashboard/Header"
-import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
+import PatientSearch from "../../components/createprescription/PatientSearch"
+import DiagnosisNotes from "../../components/createprescription/DiagnosisNotes"
+import PrescriptionMedicines from "../../components/createprescription/PrescriptionMedicines"
+import PrescriptionActions from "../../components/createprescription/PrescriptionActions"
+import Sidebar from "../../components/Doctordashboard/Sidebar"
+import Header from "../../components/Doctordashboard/Header"
+import { SidebarProvider, useSidebar } from "../../contexts/SidebarContext"
 
 const CreatePrescriptionContent = () => {
   const { isCollapsed } = useSidebar()

@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
-import Sidebar from "../components/Doctordashboard/Sidebar"
-import Header from "../components/Doctordashboard/Header"
-import PatientDirectory from "../components/patientrecords/PatientDirectory"
-import PatientDetails from "../components/patientrecords/PatientDetails"
+import { SidebarProvider, useSidebar } from "../../contexts/SidebarContext"
+import Sidebar from "../../components/Doctordashboard/Sidebar"
+import Header from "../../components/Doctordashboard/Header"
+import PatientDirectory from "../../components/patientrecords/PatientDirectory"
+import PatientDetails from "../../components/patientrecords/PatientDetails"
 
 interface Patient {
   id: string

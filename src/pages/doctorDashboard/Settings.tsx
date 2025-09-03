@@ -1,9 +1,9 @@
-import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
-import Sidebar from "../components/Doctordashboard/Sidebar"
-import Header from "../components/Doctordashboard/Header"
-import ProfileInformation from "../components/settings/ProfileInformation"
-import ClinicInformation from "../components/settings/ClinicInformation"
-import SecurityPrivacy from "../components/settings/SecurityPrivacy"
+import { SidebarProvider, useSidebar } from "../../contexts/SidebarContext"
+import Sidebar from "../../components/Doctordashboard/Sidebar"
+import Header from "../../components/Doctordashboard/Header"
+import ProfileInformation from "../../components/settings/ProfileInformation"
+import ClinicInformation from "../../components/settings/ClinicInformation"
+import SecurityPrivacy from "../../components/settings/SecurityPrivacy"
 
 const SettingsContent = () => {
   const { isCollapsed } = useSidebar()

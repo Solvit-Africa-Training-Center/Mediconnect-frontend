@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom"
 import DashboardContent from "./DashboardContent"
-import CreatePrescription from "../../pages/CreatePrescription"
-import PatientRecords from "../../pages/PatientRecords"
-import PrescriptionHistory from "../../pages/PrescriptionHistory"
-import Notifications from "../../pages/Notifications"
-import Settings from "../../pages/Settings"
+import CreatePrescription from "../../pages/doctorDashboard/CreatePrescription"
+import PatientRecords from "../../pages/doctorDashboard/PatientRecords"
+import PrescriptionHistory from "../../pages/doctorDashboard/PrescriptionHistory"
+import Notifications from "../../pages/doctorDashboard/Notifications"
+import Settings from "../../pages/doctorDashboard/Settings"
 import { useSidebar } from "../../contexts/SidebarContext"
 
 const MainContent = () => {

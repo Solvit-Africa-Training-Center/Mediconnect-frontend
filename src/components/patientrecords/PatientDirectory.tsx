@@ -1,4 +1,3 @@
-
 import type React from "react"
 import { useState } from "react"
 import { Search, Phone, Calendar, Eye } from "lucide-react"
@@ -106,7 +105,7 @@ const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) 
             </tr>
           </thead>
           <tbody>
-            {filteredPatients.map((patient, index) => (
+            {filteredPatients.map((patient) => (
               <tr
                 key={patient.id}
                 className={`border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors`}

@@ -1,9 +1,9 @@
-import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
-import Sidebar from "../components/Doctordashboard/Sidebar"
-import Header from "../components/Doctordashboard/Header"
-import PrescriptionHeader from "../components/prescriptionhistory/PrescriptionHeader"
-import PrescriptionFilters from "../components/prescriptionhistory/PrescriptionFilters"
-import PrescriptionTable from "../components/prescriptionhistory/PrescriptionTable"
+import { SidebarProvider, useSidebar } from "../../contexts/SidebarContext"
+import Sidebar from "../../components/Doctordashboard/Sidebar"
+import Header from "../../components/Doctordashboard/Header"
+import PrescriptionHeader from "../../components/prescriptionhistory/PrescriptionHeader"
+import PrescriptionFilters from "../../components/prescriptionhistory/PrescriptionFilters"
+import PrescriptionTable from "../../components/prescriptionhistory/PrescriptionTable"
 
 const PrescriptionHistoryContent = () => {
   const { isCollapsed } = useSidebar()

@@ -43,12 +43,11 @@ const ProfileInformation = () => {
               type="text"
               value={profileData.fullName}
               onChange={(e) => handleInputChange("fullName", e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 backgroundColor: "#faf5ff",
                 borderColor: "#D3D9DE",
                 color: "#131A20",
-                focusRingColor: "#0C7AE9",
               }}
             />
           </div>
@@ -60,7 +59,7 @@ const ProfileInformation = () => {
               type="email"
               value={profileData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 backgroundColor: "#faf5ff",
                 borderColor: "#D3D9DE",
@@ -79,7 +78,7 @@ const ProfileInformation = () => {
               type="tel"
               value={profileData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 backgroundColor: "#faf5ff",
                 borderColor: "#D3D9DE",
@@ -95,7 +94,7 @@ const ProfileInformation = () => {
               type="text"
               value={profileData.medicalLicense}
               onChange={(e) => handleInputChange("medicalLicense", e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 backgroundColor: "#faf5ff",
                 borderColor: "#D3D9DE",
@@ -113,7 +112,7 @@ const ProfileInformation = () => {
             type="text"
             value={profileData.specialization}
             onChange={(e) => handleInputChange("specialization", e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{
               backgroundColor: "#faf5ff",
               borderColor: "#D3D9DE",
@@ -130,7 +129,7 @@ const ProfileInformation = () => {
             value={profileData.bio}
             onChange={(e) => handleInputChange("bio", e.target.value)}
             rows={3}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 resize-none"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             style={{
               backgroundColor: "#faf5ff",
               borderColor: "#D3D9DE",

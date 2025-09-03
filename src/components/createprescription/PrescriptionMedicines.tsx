@@ -2,8 +2,17 @@ import { useState } from "react"
 import MedicineCard from "./MedicineCard"
 import AddMedicineForm from "./AddMedicineForm"
 
+interface Medicine {
+  id: string
+  name: string
+  dosage: string
+  frequency: string
+  duration: string
+  instructions: string
+}
+
 const PrescriptionMedicines = () => {
-  const [medicines, setMedicines] = useState([
+  const [medicines, setMedicines] = useState<Medicine[]>([
     {
       id: "1",
       name: "Paracetamol",
@@ -14,7 +23,7 @@ const PrescriptionMedicines = () => {
     },
   ])
 
-  const addMedicine = (medicine: any) => {
+  const addMedicine = (medicine: Medicine) => {
     setMedicines([...medicines, medicine])
   }
 
