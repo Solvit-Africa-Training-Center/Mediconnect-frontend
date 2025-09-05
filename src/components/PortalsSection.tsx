@@ -6,7 +6,7 @@ const PortalsSection = () => {
       icon: Users,
       title: "Patient Portal",
       description: "Access prescriptions, get medication reminders, and chat with your healthcare provider.",
-      link: "/patient-portal"
+      link: "/patient"
     },
     {
       icon: Stethoscope,
