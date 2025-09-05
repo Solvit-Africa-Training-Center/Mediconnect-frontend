@@ -1,19 +1,16 @@
-import type inputInterface from "../Types/Types";
+import inputInterface from "../Types/Types";
 
-
-const Input=({...inputInterface}:inputInterface)=> {
-
-
-    return(
-        <div>
-            <input 
-            type={inputInterface.type}
-            placeholder={inputInterface.placeholder}
-            value={inputInterface.value}
-            onChange={inputInterface.onChange}
-            className={inputInterface.className}
-             />
-        </div>
+const Input = ({ type, placeholder, value, onChange, className, name, required}:inputInterface) => {
+    return (
+        <input 
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            className={className}
+            required={required}
+        />
     )
 }
 

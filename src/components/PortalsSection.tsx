@@ -1,20 +1,25 @@
+import { Stethoscope, Users, Pill } from "lucide-react"
+
 const PortalsSection = () => {
   const portals = [
     {
-      icon: "",
+      icon: Users,
+      title: "Patient Portal",
+      description: "Access prescriptions, get medication reminders, and chat with your healthcare provider.",
+      link: "/patient-portal"
+    },
+    {
+      icon: Stethoscope,
       title: "Doctor Dashboard",
       description:
         "Create secure digital prescriptions with allergy alerts, patient history and other medical information.",
+      link: "/doctor-dashboard"
     },
     {
-      icon: "",
-      title: "Patient Portal",
-      description: "Access prescriptions, get medication reminders, and chat with your healthcare provider.",
-    },
-    {
-      icon: "",
+      icon: Pill,
       title: "Pharmacist Tools",
       description: "Verify prescriptions, manage drug inventory, scanner and track medication on dispensed.",
+      link: "/pharmacist-tools"
     },
   ]
 
@@ -23,18 +28,19 @@ const PortalsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-8">
           {portals.map((portal, index) => (
-            <div
+            <a
               key={index}
-              className="bg-card rounded p-8 shadow-card hover:shadow-float transition-smooth"
+              href={portal.link}
+              className="bg-card rounded p-8 shadow-card hover:shadow-float transition-smooth cursor-pointer block"
             >
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 bg-gradient-medical rounded-xl flex items-center justify-center mx-auto">
-                  <span className="text-2xl text-primary-foreground">{portal.icon}</span>
+                  <portal.icon className="h-8 w-8 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-card-foreground">{portal.title}</h3>
+                <h3 className="text-xl font-semibold text-foreground">{portal.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{portal.description}</p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

@@ -10,7 +10,7 @@ const HeroSection = () => {
   const badges = ["WHO Certified", "HIPAA Compliant", "AI-Powered"]
 
   return (
-    <section className="bg-background py-16">
+    <section className=" min-h-screen bg-background py-16 sm:px-5 md:px-10 lg:px-20">
       {isLoginOpen && <LoginModal isOpen={isLoginOpen} onClose={handleClose} />}
       <div className="max-w-7xl mx-auto px-4 lg:grid lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
@@ -26,7 +26,7 @@ const HeroSection = () => {
           </p>
           <div className="flex gap-4">
             <button className="bg-gradient-medical text-primary-foreground px-6 py-3 rounded flex items-center gap-2">
-              <QrCode size={16} /> Dashboard
+              <QrCode size={16} /> Access Dashboard
             </button>
             <button onClick={handleLoginClick} className="border border-muted text-primary px-6 py-3 rounded flex items-center gap-2">
               <Clock size={16} /> Get Started
@@ -37,14 +37,15 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="relative">
-          <img src="welcome-image.jpg" alt="Medical tech" className="w-full rounded-2xl" />
-          <div className="absolute -bottom-6 -left-6 bg-card rounded p-4 grid grid-cols-2 gap-4">
-            {stats.map(stat => {
-              const [num, label] = stat.split(' ', 2)
+          <img src="Medicalpage.jpg" alt="Medical professionals using digital technology" className="w-full h-96 rounded-2xl" />
+          <div className="absolute -bottom-6 -left-6 bg-card rounded p-4 grid grid-cols-2 gap-4 shadow-card">
+            {stats.map(statText => {
+              const [number, description] = statText.split(' ', 2)
+              
               return (
-                <div key={stat} className="text-center">
-                  <div className="text-xl text-secondary">{num}</div>
-                  <div className="text-xs text-muted-foreground">{label}</div>
+                <div key={statText} className="text-center">
+                  <div className="text-xl font-bold text-secondary">{number}</div>
+                  <div className="text-xs text-muted-foreground">{description}</div>
                 </div>
               )
             })}

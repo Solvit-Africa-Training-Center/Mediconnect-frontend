@@ -7,7 +7,7 @@ const Header = () => {
   const {handleLoginClick} = useContext(LoginContext)
 
   return (
-    <header className="bg-card text-card-foreground shadow-card border-b border-muted">
+    <header className="bg-foreground text-card-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">

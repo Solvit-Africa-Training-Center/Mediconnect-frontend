@@ -1,126 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* Base Colors */
-  --color-background: 0 0% 98%;
+  --color-background: 212 79% 98%;
+  --color-background-blue: #116FD4;
   --color-foreground: 210 15% 25%;
   --color-card: 0 0% 100%;
-  --color-card-foreground: 210 15% 25%;
-
-  /* Primary / Secondary / Accent */
   --color-primary: 211 85% 45%;
   --color-primary-foreground: 0 0% 100%;
   --color-secondary: 180 61% 40%;
-  --color-secondary-foreground: 0 0% 100%;
-  --color-accent: 45 95% 55%;
-  --color-accent-foreground: 210 15% 25%;
-
-  /* Muted / Destructive */
   --color-muted: 210 40% 96%;
   --color-muted-foreground: 215 16% 47%;
-  --color-destructive: 0 84% 60%;
-  --color-destructive-foreground: 0 0% 100%;
-
-  /* Sidebar */
-  --color-sidebar-background: 0 0% 98%;
-  --color-sidebar-foreground: 240 5.3% 26.1%;
-  --color-sidebar-primary: 240 5.9% 10%;
-  --color-sidebar-primary-foreground: 0 0% 98%;
-  --color-sidebar-accent: 240 4.8% 95.9%;
-  --color-sidebar-accent-foreground: 240 5.9% 10%;
-  --color-sidebar-border: 220 13% 91%;
-  --color-sidebar-ring: 217.2 91.2% 59.8%;
-
-  /* Gradients */
   --color-gradient-medical: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-secondary)));
-  --color-gradient-trust: linear-gradient(135deg, hsl(var(--color-secondary)), hsl(var(--color-primary)));
-  --color-gradient-rwanda: linear-gradient(135deg, hsl(211 85% 45%), hsl(45 95% 55%));
-  --color-gradient-hero: linear-gradient(135deg, hsl(var(--color-primary)), hsl(180 60% 40%));
-
-  /* Shadows */
   --shadow-medical: 0 4px 20px hsl(var(--color-primary)/0.15);
-  --shadow-card: 0 2px 10px hsl(var(--color-card-foreground)/0.08);
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.08);
   --shadow-float: 0 8px 30px hsl(var(--color-primary)/0.12);
-
-  /* Radius & Transition */
   --radius: 0.75rem;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .dark {
   --color-background: 222.2 84% 4.9%;
   --color-foreground: 210 40% 98%;
   --color-card: 222.2 84% 4.9%;
-  --color-card-foreground: 210 40% 98%;
-
   --color-primary: 210 40% 98%;
   --color-primary-foreground: 222.2 47.4% 11.2%;
   --color-secondary: 217.2 32.6% 17.5%;
-  --color-secondary-foreground: 210 40% 98%;
-  --color-accent: 217.2 32.6% 17.5%;
-  --color-accent-foreground: 210 40% 98%;
-
   --color-muted: 217.2 32.6% 17.5%;
   --color-muted-foreground: 215 20.2% 65.1%;
-  --color-destructive: 0 62.8% 30.6%;
-  --color-destructive-foreground: 210 40% 98%;
-
-  --color-sidebar-background: 240 5.9% 10%;
-  --color-sidebar-foreground: 240 4.8% 95.9%;
-  --color-sidebar-primary: 224.3 76.3% 48%;
-  --color-sidebar-primary-foreground: 0 0% 100%;
-  --color-sidebar-accent: 240 3.7% 15.9%;
-  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
-  --color-sidebar-border: 240 3.7% 15.9%;
-  --color-sidebar-ring: 217.2 91.2% 59.8%;
-
   --color-gradient-medical: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-secondary)));
-  --color-gradient-trust: linear-gradient(135deg, hsl(var(--color-secondary)), hsl(var(--color-primary)));
-
   --shadow-medical: 0 4px 20px hsl(var(--color-primary)/0.15);
-  --shadow-card: 0 2px 10px hsl(var(--color-card-foreground)/0.08);
+  --shadow-card: 0 2px 10px rgba(255,255,255,0.08);
   --shadow-float: 0 8px 30px hsl(var(--color-primary)/0.12);
-
   --radius: 0.75rem;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Utility Classes */
-
-/* Backgrounds */
 .bg-background { background-color: hsl(var(--color-background)); }
+.bg-background-blue { background-color: var(--color-background-blue); }
 .bg-card { background-color: hsl(var(--color-card)); }
-.bg-primary { background-color: hsl(var(--color-primary)); }
-.bg-secondary { background-color: hsl(var(--color-secondary)); }
-.bg-accent { background-color: hsl(var(--color-accent)); }
 .bg-muted { background-color: hsl(var(--color-muted)); }
-.bg-destructive { background-color: hsl(var(--color-destructive)); }
-
-/* Foregrounds / Text */
 .text-foreground { color: hsl(var(--color-foreground)); }
-.text-card-foreground { color: hsl(var(--color-card-foreground)); }
+.text-primary { color: hsl(var(--color-primary)); }
+.text-secondary { color: hsl(var(--color-secondary)); }
 .text-primary-foreground { color: hsl(var(--color-primary-foreground)); }
-.text-secondary-foreground { color: hsl(var(--color-secondary-foreground)); }
-.text-accent-foreground { color: hsl(var(--color-accent-foreground)); }
 .text-muted-foreground { color: hsl(var(--color-muted-foreground)); }
-.text-destructive-foreground { color: hsl(var(--color-destructive-foreground)); }
-
-/* Gradients */
 .bg-gradient-medical { background: var(--color-gradient-medical); }
-.bg-gradient-trust { background: var(--color-gradient-trust); }
-.bg-gradient-rwanda { background: var(--color-gradient-rwanda); }
-.bg-gradient-hero { background: var(--color-gradient-hero); }
-
-/* Shadows */
 .shadow-medical { box-shadow: var(--shadow-medical); }
 .shadow-card { box-shadow: var(--shadow-card); }
 .shadow-float { box-shadow: var(--shadow-float); }
-
-/* Radius */
 .rounded { border-radius: var(--radius); }
-
-/* Transitions */
 .transition-smooth { transition: var(--transition-smooth); }
-.transition-bounce { transition: var(--transition-bounce); }
