@@ -7,3 +7,9 @@ export default interface inputInterface {
     className?: string;
     required?: boolean; 
 }
+
+export default interface Patient{
+    id: number;
+    name: string;
+    
+}

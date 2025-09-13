@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: 212 79% 98%;
+  --color-background: 212 79% 96%;
   --color-background-blue: #116FD4;
   --color-foreground: 210 15% 25%;
   --color-card: 0 0% 100%;
@@ -45,6 +45,13 @@
 .text-primary-foreground { color: hsl(var(--color-primary-foreground)); }
 .text-muted-foreground { color: hsl(var(--color-muted-foreground)); }
 .bg-gradient-medical { background: var(--color-gradient-medical); }
+.text-bg-gradient-medical { 
+  background: var(--color-gradient-medical);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 .shadow-medical { box-shadow: var(--shadow-medical); }
 .shadow-card { box-shadow: var(--shadow-card); }
 .shadow-float { box-shadow: var(--shadow-float); }

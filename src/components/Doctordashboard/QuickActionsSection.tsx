@@ -13,6 +13,7 @@ const QuickActionsSection = () => {
           description="Write a new prescription"
           icon={Plus}
           variant="primary"
+          link="/create-prescription"
         />
 
         <QuickActionButton title="Patient Records" description="View patient history" icon={Users} />

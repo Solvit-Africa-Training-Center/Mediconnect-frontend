@@ -1,6 +1,6 @@
 const EcosystemSection = () => {
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-white/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl text-card-foreground mb-4">Complete Healthcare Digital Ecosystem</h2>
         <p className="text-lg text-muted-foreground leading-relaxed">
