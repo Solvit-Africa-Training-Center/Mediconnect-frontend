@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import HeroSection from "../components/Herosection"
 import PortalsSection from "../components/PortalsSection"
 
+
 const Homepage = () => {
     return (
         <div className="h-full">
@@ -12,6 +13,7 @@ const Homepage = () => {
             <EcosystemSection/>
             <PortalsSection/>
             <AboutSection/>
+
         </div>
     )
 }

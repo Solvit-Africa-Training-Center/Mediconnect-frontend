@@ -2,9 +2,11 @@ import PatientSearch from "../../components/createprescription/PatientSearch"
 import DiagnosisNotes from "../../components/createprescription/DiagnosisNotes"
 import PrescriptionMedicines from "../../components/createprescription/PrescriptionMedicines"
 import PrescriptionActions from "../../components/createprescription/PrescriptionActions"
+import PrescriptionSummary from "../../components/createprescription/PrescriptionSummary"
 import Sidebar from "../../components/Doctordashboard/Sidebar"
 import Header from "../../components/Doctordashboard/Header"
 import { SidebarProvider, useSidebar } from "../../contexts/SidebarContext"
+import { PrescriptionProvider } from "../../contexts/PrescriptionContext"
 
 const CreatePrescriptionContent = () => {
   const { isCollapsed } = useSidebar()
@@ -14,23 +16,25 @@ const CreatePrescriptionContent = () => {
       <Sidebar />
       <Header />
 
-      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "pl-20" : "pl-70"}`}>
-        <div className="max-w-7xl mx-auto space-y-6">
-          <div className="mb-8">
-            <h1 className="text-3xl font-semibold text-[#29333D] mb-2">Create New Prescription</h1>
+      <main className={`transition-all duration-300 pt-5 p- ${isCollapsed ? "pl-5" : "pl-5"}`}>
+        <div>
+          <div>
+            <h1 className="text-3xl font-semibold text-[#29333D]">Create New Prescription</h1>
             <p className="text-[#29333D] opacity-70 text-lg">Create and send prescriptions to patients</p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
-            <PatientSearch />
-            <DiagnosisNotes />
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="xl:col-span-2">
+              <PatientSearch />
+              <DiagnosisNotes />
+              <PrescriptionMedicines />
+            </div>
+            <div>
+              <PrescriptionSummary />
+            </div>
           </div>
 
-          <div className="mb-6">
-            <PrescriptionMedicines />
-          </div>
-
-          <PrescriptionActions medicineCount={1} />
+          <PrescriptionActions />
         </div>
       </main>
     </div>
@@ -40,7 +44,9 @@ const CreatePrescriptionContent = () => {
 const CreatePrescription = () => {
   return (
     <SidebarProvider>
-      <CreatePrescriptionContent />
+      <PrescriptionProvider>
+        <CreatePrescriptionContent />
+      </PrescriptionProvider>
     </SidebarProvider>
   )
 }

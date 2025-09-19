@@ -1,20 +1,11 @@
 
 import type React from "react"
-
 import { Plus } from "lucide-react"
 import { useState } from "react"
-
-interface Medicine {
-  id: string
-  name: string
-  dosage: string
-  frequency: string
-  duration: string
-  instructions: string
-}
+import type { Medication } from "../../Types/prescription/prescription.types"
 
 interface AddMedicineFormProps {
-  onAddMedicine: (medicine: Medicine) => void
+  onAddMedicine: (medication: Omit<Medication, 'id'>) => void
   medicineCount: number
 }
 
@@ -25,21 +16,20 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
     dosage: "",
     frequency: "",
     duration: "",
+    quantity: 1,
     instructions: "",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.name && formData.dosage && formData.frequency && formData.duration) {
-      onAddMedicine({
-        id: (medicineCount + 1).toString(),
-        ...formData,
-      })
+      onAddMedicine(formData)
       setFormData({
         name: "",
         dosage: "",
         frequency: "",
         duration: "",
+        quantity: 1,
         instructions: "",
       })
       setShowForm(false)

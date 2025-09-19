@@ -1,10 +1,12 @@
 import { useContext } from "react"
 import LoginContext from "../hooks/LoginContext"
 import { Shield, LogIn } from "lucide-react"
-
+import { useNavigate } from "react-router-dom"
 const Header = () => {
+  
+  const navigate = useNavigate() 
 
-  const {handleLoginClick} = useContext(LoginContext)
+  const handleLoginClick=() => {navigate ("/portals")}
 
   return (
     <header className="bg-foreground text-card-foreground">

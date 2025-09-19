@@ -1,7 +1,14 @@
 import type React from "react"
 import { FileText } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const MedicalHistory: React.FC = () => {
+  const navigate = useNavigate()
+  
+  const handleRequestReport = () => {
+    navigate('/patient/medical-records-request')
+  }
+  
   const records = [
     {
       type: "Prescription",
@@ -48,7 +55,10 @@ const MedicalHistory: React.FC = () => {
         </div>
       </div>
 
-      <button className="w-full bg-[#0C7AE9] text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-[#116FD4] transition-colors">
+      <button 
+        onClick={handleRequestReport}
+        className="w-full bg-[#0C7AE9] text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-[#116FD4] transition-colors"
+      >
         <FileText className="w-4 h-4" />
         Request your Medical Report
       </button>

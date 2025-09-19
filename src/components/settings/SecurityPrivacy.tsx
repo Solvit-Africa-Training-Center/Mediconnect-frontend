@@ -1,13 +1,9 @@
 import { useState } from "react"
-import { Shield, Mail, MessageSquare, Bell, Key, Save } from "lucide-react"
+import { Shield, Key, Save } from "lucide-react"
 
 const SecurityPrivacy = () => {
   const [securitySettings, setSecuritySettings] = useState({
     twoFactorAuth: true,
-    emailNotifications: true,
-    smsNotifications: false,
-    prescriptionAlerts: true,
-    systemUpdates: true,
   })
 
   const [passwords, setPasswords] = useState({
@@ -23,8 +19,14 @@ const SecurityPrivacy = () => {
     setPasswords((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSaveSecurity = () => {
-    console.log("Saving security settings:", securitySettings, passwords)
+  const handleSaveSecurity = async () => {
+    try {
+      // TODO: Implement API call to save security settings
+      // await updateSecuritySettings(securitySettings)
+      // await changePassword(passwords)
+    } catch (error) {
+      console.error('Failed to save security settings:', error)
+    }
   }
 
   const ToggleSwitch = ({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) => (
@@ -52,7 +54,7 @@ const SecurityPrivacy = () => {
             Security & Privacy
           </h3>
           <p className="text-sm" style={{ color: "#29333D" }}>
-            Manage your account security and notification preferences
+            Manage your account security settings
           </p>
         </div>
       </div>
@@ -74,80 +76,7 @@ const SecurityPrivacy = () => {
           <ToggleSwitch enabled={securitySettings.twoFactorAuth} onToggle={() => handleToggle("twoFactorAuth")} />
         </div>
 
-        {/* Notification Preferences */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <Bell className="w-4 h-4" style={{ color: "#0C7AE9" }} />
-            <h4 className="font-medium" style={{ color: "#131A20" }}>
-              Notification Preferences
-            </h4>
-          </div>
 
-          <div className="space-y-4 ml-7">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4" style={{ color: "#29333D" }} />
-                <div>
-                  <p className="font-medium" style={{ color: "#131A20" }}>
-                    Email Notifications
-                  </p>
-                  <p className="text-sm" style={{ color: "#29333D" }}>
-                    Receive notifications via email
-                  </p>
-                </div>
-              </div>
-              <ToggleSwitch
-                enabled={securitySettings.emailNotifications}
-                onToggle={() => handleToggle("emailNotifications")}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <MessageSquare className="w-4 h-4" style={{ color: "#29333D" }} />
-                <div>
-                  <p className="font-medium" style={{ color: "#131A20" }}>
-                    SMS Notifications
-                  </p>
-                  <p className="text-sm" style={{ color: "#29333D" }}>
-                    Receive urgent notifications via SMS
-                  </p>
-                </div>
-              </div>
-              <ToggleSwitch
-                enabled={securitySettings.smsNotifications}
-                onToggle={() => handleToggle("smsNotifications")}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium" style={{ color: "#131A20" }}>
-                  Prescription Alerts
-                </p>
-                <p className="text-sm" style={{ color: "#29333D" }}>
-                  Get notified when prescriptions are dispensed or rejected
-                </p>
-              </div>
-              <ToggleSwitch
-                enabled={securitySettings.prescriptionAlerts}
-                onToggle={() => handleToggle("prescriptionAlerts")}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium" style={{ color: "#131A20" }}>
-                  System Updates
-                </p>
-                <p className="text-sm" style={{ color: "#29333D" }}>
-                  Receive notifications about system maintenance and updates
-                </p>
-              </div>
-              <ToggleSwitch enabled={securitySettings.systemUpdates} onToggle={() => handleToggle("systemUpdates")} />
-            </div>
-          </div>
-        </div>
 
         {/* Change Password */}
         <div>

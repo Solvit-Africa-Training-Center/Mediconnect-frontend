@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react"
 import StatsGrid from "./StatsGrid"
 import QuickActionsSection from "./QuickActionsSection"
-import NotificationsSection from "./NotificationsSection"
+
 import { Link } from "react-router-dom"
 
 const DashboardContent = () => {
@@ -22,7 +22,7 @@ const DashboardContent = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <QuickActionsSection />
-        <NotificationsSection />
+
       </div>
     </div>
   )

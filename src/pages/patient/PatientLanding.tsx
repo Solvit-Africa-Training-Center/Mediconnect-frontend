@@ -1,15 +1,17 @@
 import Footer from "../../components/Footer"
 import { Heart, Shield, Users, QrCode } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import LoginContext from "../../hooks/LoginContext"
+import PatientLoginModal from "../../components/PatientLoginModal"
 
 const PatientLanding = () => {
   const { user } = useContext(LoginContext)
   const navigate = useNavigate()
+  const [showLoginModal, setShowLoginModal] = useState(false)
 
   const handleDashboardAccess = () => {
-    navigate('/patient/dashboard')
+    setShowLoginModal(true)
   }
 
   return (
@@ -91,6 +93,12 @@ const PatientLanding = () => {
       </div>
       
       <Footer />
+      
+      {/* Patient Login Modal */}
+      <PatientLoginModal 
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </div>
   )
 }

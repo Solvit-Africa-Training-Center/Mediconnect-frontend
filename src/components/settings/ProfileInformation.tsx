@@ -15,8 +15,13 @@ const ProfileInformation = () => {
     setProfileData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSaveProfile = () => {
-    console.log("Saving profile changes:", profileData)
+  const handleSaveProfile = async () => {
+    try {
+      // TODO: Implement API call to save profile
+      // await updateProfile(profileData)
+    } catch (error) {
+      console.error('Failed to save profile:', error)
+    }
   }
 
   return (

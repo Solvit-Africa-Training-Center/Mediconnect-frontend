@@ -1,27 +1,32 @@
-import { LucideIcon } from "lucide-react"
+import { Link } from "react-router-dom";
 
-interface PortalCardProps {
-  icon: LucideIcon
-  title: string
-  description: string
-  link: string
-}
+type PortalCardProps = {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  link: string;
+  onClick?: () => void;
+};
 
-const PortalCard = ({ icon: Icon, title, description, link }: PortalCardProps) => {
+const PortalCard = ({ icon: Icon, title, description, link, onClick }: PortalCardProps) => {
   return (
-    <a
-      href={link}
-      className="bg-card rounded-lg md:rounded-xl p-6 md:p-8 shadow-card hover:shadow-float transition-smooth cursor-pointer block"
+    <div
+      className="bg-white shadow-md rounded-lg p-6 cursor-pointer"
+      onClick={onClick}
     >
-      <div className="text-center space-y-3 md:space-y-4">
-        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-medical rounded-lg md:rounded-xl flex items-center justify-center mx-auto">
-          <Icon className="h-6 w-6 md:h-8 md:w-8 text-primary-foreground" />
+      <div className="grid place-items-center items-center mb-6">
+        <div className="flex items-center bg-gradient-medical p-3 mb-4 rounded">
+        <Icon className="w-10 h-10 text-white" />
         </div>
-        <h3 className="text-lg md:text-xl font-semibold text-foreground">{title}</h3>
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{description}</p>
+        <h3 className="ml-4 text-xl font-medium">{title}</h3>
       </div>
-    </a>
-  )
-}
+      <p className="text-gray-600 mb-4 text-center">{description}</p>
+      <Link
+        to={link}
+      >
+      </Link>
+    </div>
+  );
+};
 
-export default PortalCard
+export default PortalCard;

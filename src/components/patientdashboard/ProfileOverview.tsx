@@ -1,7 +1,47 @@
 import type React from "react"
 import { User, Calendar, Mail, Phone, Shield } from "lucide-react"
+import { useGetPatientByIdQuery } from "../../Back-end/patient/patientApi"
+import { useAuth } from "../../contexts/AuthContext"
 
 const ProfileOverview: React.FC = () => {
+  const { user } = useAuth()
+  const patientId = user?.id
+  const { data: patient, isLoading, error } = useGetPatientByIdQuery(patientId, {
+    skip: !patientId // Skip query if no patient ID
+  })
+
+  if (isLoading) {
+    return (
+      <div className="bg-white rounded-lg p-6 shadow-sm animate-pulse">
+        <div className="h-6 bg-gray-200 rounded mb-4"></div>
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+          <div className="flex-1">
+            <div className="h-5 bg-gray-200 rounded mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-12 bg-gray-200 rounded"></div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white rounded-lg p-6 shadow-sm">
+        <div className="text-red-600 text-center">Failed to load patient profile</div>
+      </div>
+    )
+  }
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+  }
+
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm">
       <div className="flex items-center gap-4 mb-6">
@@ -11,11 +51,13 @@ const ProfileOverview: React.FC = () => {
 
       <div className="flex items-center gap-4 mb-6">
         <div className="w-16 h-16 bg-[#0C7AE9] rounded-full flex items-center justify-center text-white font-semibold text-xl">
-          RM
+          {patient ? getInitials(patient.fullName) : 'P'}
         </div>
         <div>
-          <h3 className="font-semibold text-[#29333D] text-lg">Raissa Micheline IMPUHWE MANZI</h3>
-          <span className="text-xs bg-[#D3D9DE] px-2 py-1 rounded text-[#29333D]">REF: RW-PAT-2024-001567</span>
+          <h3 className="font-semibold text-[#29333D] text-lg">{patient?.fullName || 'Loading...'}</h3>
+          <span className="text-xs bg-[#D3D9DE] px-2 py-1 rounded text-[#29333D]">
+            REF: {patient?.referenceNumber || 'N/A'}
+          </span>
         </div>
       </div>
 
@@ -24,7 +66,7 @@ const ProfileOverview: React.FC = () => {
           <Calendar className="w-4 h-4 text-[#29333D]" />
           <div>
             <p className="text-sm text-[#29333D] opacity-70">Date of Birth</p>
-            <p className="text-sm font-medium text-[#29333D]">1985-03-15</p>
+            <p className="text-sm font-medium text-[#29333D]">{patient?.dateOfBirth || 'N/A'}</p>
           </div>
         </div>
 
@@ -32,15 +74,15 @@ const ProfileOverview: React.FC = () => {
           <Mail className="w-4 h-4 text-[#29333D]" />
           <div>
             <p className="text-sm text-[#29333D] opacity-70">Email</p>
-            <p className="text-sm font-medium text-[#29333D]">raissamich12@gmail.com</p>
+            <p className="text-sm font-medium text-[#29333D]">{patient?.email || 'N/A'}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-[#29333D]" />
           <div>
-            <p className="text-sm text-[#29333D] opacity-70">Insurance</p>
-            <p className="text-sm font-medium text-[#29333D]">RSSB - Community Based Health Insurance</p>
+            <p className="text-sm text-[#29333D] opacity-70">Blood Type</p>
+            <p className="text-sm font-medium text-[#29333D]">{patient?.bloodType || 'Not specified'}</p>
           </div>
         </div>
 
@@ -48,7 +90,7 @@ const ProfileOverview: React.FC = () => {
           <Phone className="w-4 h-4 text-[#29333D]" />
           <div>
             <p className="text-sm text-[#29333D] opacity-70">Phone</p>
-            <p className="text-sm font-medium text-[#29333D]">+250 788 123 456</p>
+            <p className="text-sm font-medium text-[#29333D]">{patient?.phone || 'N/A'}</p>
           </div>
         </div>
       </div>

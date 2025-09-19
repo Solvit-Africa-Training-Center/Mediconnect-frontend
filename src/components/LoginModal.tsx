@@ -1,147 +1,80 @@
-import Input from "./Input"
-import { useState, useContext } from "react"
-import { Shield, Eye, EyeOff, LogIn } from "lucide-react"
-import LoginContext from "../hooks/LoginContext"
-import { loginSchema } from "../schemas/authSchemas"
+import { useState } from "react"
+import { useAuth } from "../contexts/AuthContext"
+import { useLoginMutation } from "../Back-end/authentication/authenticationApi"
 
-interface LoginModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
+const LoginModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const [formData, setFormData] = useState({ email: "", password: "" })
+  const [login, { isLoading }] = useLoginMutation()
+  const { login: handleLogin } = useAuth()
+  const [error, setError] = useState<string | null>(null)
 
-const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-  const { login } = useContext(LoginContext)
-  const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({ 
-    email: "", 
-    password: ""
-  })
-  const [rememberMe, setRememberMe] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setErrors({})
-    
+    setError(null)
+
     try {
-      loginSchema.parse({ email: formData.email, password: formData.password })
-      
-      const userData = {
-        id: Date.now().toString(),
-        email: formData.email,
-        fullName: formData.email.split('@')[0],
-        role: "patient" as "patient" | "doctor" | "pharmacist"
-      }
-      
-      login(userData)
-    } catch (error: any) {
-      if (error.errors) {
-        const newErrors: Record<string, string> = {}
-        error.errors.forEach((err: any) => {
-          newErrors[err.path[0]] = err.message
-        })
-        setErrors(newErrors)
-      }
+      const result = await login(formData).unwrap()
+      handleLogin(result.data)
+      onClose()
+    } catch (err: any) {
+      setError(err?.data?.message || "Login failed. Please try again.")
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
-
-
   if (!isOpen) return null
-  
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white p-8 w-full max-w-md mx-4 shadow-2xl h-screen overflow-y-auto">
-        <div className=" mb-8">
-          <div className="mx-auto mb-6 p-4 bg-gradient-medical rounded w-fit">
-            <Shield size={40} className="text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-blue-500 mb-2">
-            Welcome Back
-          </h1>
-          <p className="text-gray-600">
-            Please sign in to your account
-          </p>
-        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-            <Input
-              name="email"
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
               type="email"
-              className={`w-full h-12 px-4 border-2 rounded-lg focus:outline-none transition-colors ${
-                errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-              }`}
-              placeholder="Enter your email"
+              name="email"
+              id="email"
               value={formData.email}
               onChange={handleChange}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
               required
             />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
-          
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-            <div className="relative">
-              <Input
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                className={`w-full h-12 px-4 pr-12 border-2 rounded-lg focus:outline-none transition-colors ${
-                  errors.password ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                }`}
-                required
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <label className="flex items-center gap-2 text-sm text-gray-600">
-              <input 
-                type="checkbox" 
-                checked={rememberMe} 
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 text-blue-600 rounded"
-              />
-              Remember me
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
             </label>
-            <button type="button" className="text-sm text-blue-600 hover:text-blue-800 font-medium">
-              Forgot Password?
-            </button>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
           </div>
-
-          <button 
-            type="submit" 
-            className="w-full h-12 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors shadow-lg"
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 disabled:opacity-50"
           >
-            <LogIn size={20} />
-            Sign In
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        <button 
+        <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          className="mt-4 w-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-300"
         >
-          ✕
+          Cancel
         </button>
       </div>
     </div>

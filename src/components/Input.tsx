@@ -1,4 +1,4 @@
-import inputInterface from "../Types/Types";
+import { InputInterface } from "../Types/common/base.types";
 
 const Input = ({ type, placeholder, value, onChange, className, name, required}:inputInterface) => {
     return (

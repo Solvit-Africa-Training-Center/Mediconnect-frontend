@@ -28,10 +28,10 @@ const PatientRecordsContent = () => {
       <Sidebar />
       <Header />
 
-      <main className={`pt-20 transition-all duration-300 ${isCollapsed ? "pl-20" : "pl-70"}`}>
-        <div className="p-6">
-          <div className="mb-6">
-            <h1 style={{ color: "#29333D" }} className="text-2xl font-semibold mb-2">
+      <main className={`pt-5 transition-all duration-300 ${isCollapsed ? "pl-5" : "pl-5"}`}>
+        <div className="p-">
+          <div>
+            <h1 style={{ color: "#29333D" }} className="text-2xl font-semibold">
               Patient Records
             </h1>
             <p style={{ color: "#29333D" }} className="opacity-70">

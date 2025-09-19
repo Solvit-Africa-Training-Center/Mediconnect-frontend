@@ -10,10 +10,10 @@ const SettingsContent = () => {
 
   return (
    <div
-  className={`transition-all duration-300 ${isCollapsed ? "pl-20" : "pl-70"} pt-20 bg-purple-50 min-h-screen`}
+  className={`transition-all duration-300 ${isCollapsed ? "pl-5" : "pl-5"} pt-5 bg-purple-50 min-h-screen`}
 >
 
-      <div className="p-6 space-y-6">
+      <div className="p-">
         <div>
           <h1 className="text-2xl font-bold" style={{ color: "#131A20" }}>
             Settings

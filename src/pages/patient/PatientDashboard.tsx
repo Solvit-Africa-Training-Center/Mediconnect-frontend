@@ -3,7 +3,7 @@ import ProfileOverview from "../../components/patientdashboard/ProfileOverview"
 import MedicalInformation from "../../components/patientdashboard/MedicalInformation"
 import MyPrescriptions from "../../components/patientdashboard/MyPrescriptions"
 import MedicalHistory from "../../components/patientdashboard/MedicalHistory"
-import PatientNotifications from "../../components/patientdashboard/PatientNotifications"
+
 
 const PatientDashboard: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const PatientDashboard: React.FC = () => {
             {/* Right Column */}
             <div className="space-y-6">
               <MedicalHistory />
-              <PatientNotifications />
+
             </div>
           </div>
         </div>

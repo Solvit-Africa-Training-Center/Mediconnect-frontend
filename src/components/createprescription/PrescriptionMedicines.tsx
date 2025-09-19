@@ -1,35 +1,9 @@
-import { useState } from "react"
 import MedicineCard from "./MedicineCard"
 import AddMedicineForm from "./AddMedicineForm"
-
-interface Medicine {
-  id: string
-  name: string
-  dosage: string
-  frequency: string
-  duration: string
-  instructions: string
-}
+import { usePrescription } from "../../contexts/PrescriptionContext"
 
 const PrescriptionMedicines = () => {
-  const [medicines, setMedicines] = useState<Medicine[]>([
-    {
-      id: "1",
-      name: "Paracetamol",
-      dosage: "500g",
-      frequency: "four times daily",
-      duration: "7 days",
-      instructions: "Take this medicine after eating your food",
-    },
-  ])
-
-  const addMedicine = (medicine: Medicine) => {
-    setMedicines([...medicines, medicine])
-  }
-
-  const removeMedicine = (id: string) => {
-    setMedicines(medicines.filter((med) => med.id !== id))
-  }
+  const { prescription, addMedication, removeMedication } = usePrescription()
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm">
@@ -39,15 +13,21 @@ const PrescriptionMedicines = () => {
       </p>
 
       <div className="mb-6">
-        <h4 className="font-medium text-[#29333D] mb-4">Added Medicines ({medicines.length})</h4>
+        <h4 className="font-medium text-[#29333D] mb-4">Added Medicines ({prescription.medications.length})</h4>
         <div className="space-y-3">
-          {medicines.map((medicine) => (
-            <MedicineCard key={medicine.id} medicine={medicine} onRemove={removeMedicine} />
-          ))}
+          {prescription.medications.length > 0 ? (
+            prescription.medications.map((medication) => (
+              <MedicineCard key={medication.id} medicine={medication} onRemove={removeMedication} />
+            ))
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <p>No medications added yet</p>
+            </div>
+          )}
         </div>
       </div>
 
-      <AddMedicineForm onAddMedicine={addMedicine} medicineCount={medicines.length} />
+      <AddMedicineForm onAddMedicine={addMedication} medicineCount={prescription.medications.length} />
     </div>
   )
 }

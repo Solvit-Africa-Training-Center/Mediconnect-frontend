@@ -13,8 +13,8 @@ const PrescriptionHistoryContent = () => {
       <Sidebar />
       <Header />
 
-      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "pl-20" : "pl-70"}`}>
-        <div className="space-y-6">
+      <main className={`transition-all duration-300 pt-5 p- ${isCollapsed ? "pl-5" : "pl-5"}`}>
+        <div>
           <PrescriptionHeader />
           <PrescriptionFilters />
           <PrescriptionTable />

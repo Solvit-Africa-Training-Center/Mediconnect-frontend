@@ -16,11 +16,14 @@ export const patientApi = apiSlice.injectEndpoints({
         }) 
     }),
     searchPatients: builder.query({
-        query:(searchParams)=>({
-            url:"/api/v1/patients/search",
-            method:'GET',
-            params: searchParams
-        })
+        query:(searchParams)=>{
+            console.log('Search params:', searchParams)
+            return {
+                url:"/api/v1/patients/search",
+                method:'GET',
+                params: searchParams
+            }
+        }
     }),
     getPatientByReference: builder.query({
         query:(referenceNumber)=>({
