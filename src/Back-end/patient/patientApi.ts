@@ -1,29 +1,30 @@
 import { apiSlice } from "../api/apiEntry";
+import type { Patient, MedicalVisit } from "../../Types";
 
 export const patientApi = apiSlice.injectEndpoints({
   endpoints:(builder)=>({
-    getPatients: builder.query({
+    getPatients: builder.query<Patient[], void>({
         query:()=>({
             url:"/api/v1/patients",
             method:'GET'
-        })
+        }),
+        providesTags: ['Patient']
     }),
-    registerPatient: builder.mutation({
+    registerPatient: builder.mutation<Patient, Partial<Patient>>({
         query:(data)=>({
             url:"/api/v1/patients/register",
             method:'POST',
             body:data
-        }) 
+        }),
+        invalidatesTags: ['Patient']
     }),
-    searchPatients: builder.query({
-        query:(searchParams)=>{
-            console.log('Search params:', searchParams)
-            return {
-                url:"/api/v1/patients/search",
-                method:'GET',
-                params: searchParams
-            }
-        }
+    searchPatients: builder.query<Patient[], { query: string }>({
+    query: ({ query }) => ({
+        url: "/api/v1/patients/search",
+        method: "GET",
+        params: { query }
+    }),
+    providesTags: ["Patient"],
     }),
     getPatientByReference: builder.query({
         query:(referenceNumber)=>({
@@ -50,12 +51,13 @@ export const patientApi = apiSlice.injectEndpoints({
             method:'GET'
         })
     }),
-    createMedicalVisit: builder.mutation({
+    createMedicalVisit: builder.mutation<MedicalVisit, {patientId: string, data: Partial<MedicalVisit>}>({
         query:({patientId, data})=>({
             url:`/api/v1/patients/${patientId}/visits`,
             method:'POST',
             body:data
-        })
+        }),
+        invalidatesTags: ['Patient']
     }),
     createPrescription: builder.mutation({
         query:({patientId, data})=>({

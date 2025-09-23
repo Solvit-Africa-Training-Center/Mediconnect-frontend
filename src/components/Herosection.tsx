@@ -6,7 +6,6 @@ import LoginContext from "../hooks/LoginContext"
 
 const HeroSection = () => {
   const { isLoginOpen, handleLoginClick, handleClose } = useContext(LoginContext)
-  const stats = ["100+ Physicians", "10K+ Patients", "500+ Professionals", "99.9% Uptime"]
   const badges = ["MHO Certified", "HIPAA Compliant", "AI-Powered"]
 
   return (

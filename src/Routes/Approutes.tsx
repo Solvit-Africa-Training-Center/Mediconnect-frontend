@@ -17,7 +17,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/doctor-dashboard/*" element={<ProtectedRoute requiredRole="doctor"><DoctorDashboard /></ProtectedRoute>} />
+      <Route path="/doctor-dashboard/*" element={<DoctorDashboard />} />
       <Route path="/create-prescription" element={<ProtectedRoute requiredRole="doctor"><CreatePrescription /></ProtectedRoute>} />
       <Route path="/patient-records" element={<ProtectedRoute requiredRole="doctor"><PatientRecords /></ProtectedRoute>} />
       <Route path="/prescription-history" element={<ProtectedRoute requiredRole="doctor"><PrescriptionHistory /></ProtectedRoute>} />
@@ -27,8 +27,8 @@ const AppRoutes = () => {
       <Route path="/patient/*" element={<ProtectedRoute requiredRole="patient"><PatientDashboard /></ProtectedRoute>} />
       <Route path="/patient/medical-records-request" element={<ProtectedRoute requiredRole="patient"><MedicalRecordsRequest /></ProtectedRoute>} />
       <Route path="/otp-verification" element={<OTPVerification />} />
-      <Route path="/pharmacist-dashboard" element={<ProtectedRoute requiredRole="pharmacist"><PharmacyDashbaord/></ProtectedRoute>} />
-      <Route path="/portals" element={<PortalsSection />} />
+      <Route path="/pharmacist-dashboard" element={<PharmacyDashbaord/>} />
+      <Route path="/PortalsSection" element={<PortalsSection />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>
   )

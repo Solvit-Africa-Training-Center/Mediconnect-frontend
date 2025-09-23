@@ -1,6 +1,6 @@
-import { InputInterface } from "../Types/common/base.types";
+import type{ InputInterface } from "../Types/common/base.types";
 
-const Input = ({ type, placeholder, value, onChange, className, name, required}:inputInterface) => {
+const Input = ({ type, placeholder, value, onChange, className, name, required}:InputInterface) => {
     return (
         <input 
             type={type}

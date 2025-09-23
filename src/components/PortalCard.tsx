@@ -9,23 +9,32 @@ type PortalCardProps = {
 };
 
 const PortalCard = ({ icon: Icon, title, description, link, onClick }: PortalCardProps) => {
-  return (
-    <div
-      className="bg-white shadow-md rounded-lg p-6 cursor-pointer"
-      onClick={onClick}
-    >
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  const CardContent = (
+    <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer">
       <div className="grid place-items-center items-center mb-6">
         <div className="flex items-center bg-gradient-medical p-3 mb-4 rounded">
-        <Icon className="w-10 h-10 text-white" />
+          <Icon className="w-10 h-10 text-white" />
         </div>
         <h3 className="ml-4 text-xl font-medium">{title}</h3>
       </div>
       <p className="text-gray-600 mb-4 text-center">{description}</p>
-      <Link
-        to={link}
-      >
-      </Link>
     </div>
+  );
+
+  if (onClick) {
+    return <div onClick={handleClick}>{CardContent}</div>;
+  }
+
+  return (
+    <Link to={link} className="block">
+      {CardContent}
+    </Link>
   );
 };
 

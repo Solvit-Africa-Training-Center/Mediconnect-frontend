@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
   prepareHeaders: (headers) => {
-    const token = localStorage.getItem("authToken")
+    const token = localStorage.getItem("token")
     if (token) {
       headers.set("authorization", `Bearer ${token}`)
     }
@@ -11,38 +12,24 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions)
-
+const baseQueryWithErrorHandling: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions)
+  
   if (result.error && result.error.status === 401) {
-    localStorage.removeItem("authToken")
-    window.location.href = "/login"
+    localStorage.removeItem("token")
+    window.location.href = "/unauthorized"
   }
-
+  
   return result
 }
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ["Patient", "Doctor", "Prescription"],
-  endpoints: (builder) => ({
-    login: builder.mutation({
-      query: (credentials) => ({
-        url: "/auth/login",
-        method: "POST",
-        body: credentials,
-      }),
-    }),
-    registerPatient: builder.mutation({
-      query: (patientData) => ({
-        url: "/patients",
-        method: "POST",
-        body: patientData,
-      }),
-      invalidatesTags: ["Patient"],
-    }),
-  }),
+  baseQuery: baseQueryWithErrorHandling,
+  tagTypes: ['Patient', 'Doctor', 'Pharmacist', 'Prescription', 'QrCode', 'PharmacyOperation', 'Auth'],
+  endpoints: () => ({ }),
 })
-
-export const { useLoginMutation, useRegisterPatientMutation } = apiSlice

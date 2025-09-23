@@ -1,36 +1,36 @@
-import { useState } from "react"
-import { useAuth } from "../contexts/AuthContext"
-import { useLoginMutation } from "../Back-end/authentication/authenticationApi"
+// import { useState } from "react"
+// import { useAuth } from "../contexts/AuthContext"
+// import { useLoginMutation } from "../Back-end/authentication/authenticationApi"
 
 const LoginModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" })
-  const [login, { isLoading }] = useLoginMutation()
-  const { login: handleLogin } = useAuth()
-  const [error, setError] = useState<string | null>(null)
+  // const [formData, setFormData] = useState({ email: "", password: "" })
+  // const [login, { isLoading }] = useLoginMutation()
+  // const { login: handleLogin } = useAuth()
+  // const [error, setError] = useState<string | null>(null)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target
+  //   setFormData({ ...formData, [name]: value })
+  // }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   setError(null)
 
-    try {
-      const result = await login(formData).unwrap()
-      handleLogin(result.data)
-      onClose()
-    } catch (err: any) {
-      setError(err?.data?.message || "Login failed. Please try again.")
-    }
-  }
+  //   try {
+  //     const result = await login(formData).unwrap()
+  //     handleLogin(result.data)
+  //     onClose()
+  //   } catch (err: any) {
+  //     setError(err?.data?.message || "Login failed. Please try again.")
+  //   }
+  // }
 
-  if (!isOpen) return null
+  // if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      {/* <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -76,7 +76,7 @@ const LoginModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         >
           Cancel
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

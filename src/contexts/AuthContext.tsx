@@ -1,50 +1,69 @@
-import { createContext, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../store/store"
-import { setUser, clearUser } from "../store/authSlice"
+import { createContext, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store/store";
+import { setUser, clearUser } from "../store/authSlice";
+import type { UserCredentials } from "../Types";
 
-export const AuthContext = createContext(null)
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
-  }
-  return context
+interface AuthContextType {
+  user: UserCredentials | null;
+  login: (userData: UserCredentials) => void;
+  logout: () => void;
 }
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useSelector((state: RootState) => state.auth.user)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+export const AuthContext = createContext<AuthContextType | null>(null);
 
-  const login = (userData: any) => {
-    dispatch(setUser(userData))
-    localStorage.setItem("user", JSON.stringify(userData))
-    if (userData.role === "doctor") {
-      navigate("/doctor-dashboard")
-    } else if (userData.role === "patient") {
-      navigate("/patient-dashboard")
-    } else if (userData.role === "pharmacist") {
-      navigate("/pharmacy-dashboard")
-    } else {
-      alert("Access denied. Invalid role.")
-      logout()
-    }
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
+  return context;
+};
+
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      dispatch(setUser(JSON.parse(storedUser)));
+    }
+  }, [dispatch]);
+
+  const login = (userData: UserCredentials) => {
+    dispatch(setUser(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
+
+
+    switch (userData.role) {
+      case "doctor":
+        navigate("/doctor-dashboard");
+        break;
+      case "patient":
+        navigate("/patient-dashboard");
+        break;
+      case "pharmacist":
+        navigate("/pharmacy-dashboard");
+        break;
+      default:
+        alert("Access denied. Invalid role.");
+        logout();
+    }
+  };
 
   const logout = () => {
-    dispatch(clearUser())
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+    dispatch(clearUser());
+    localStorage.removeItem("user");
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export default AuthProvider
+export default AuthProvider;

@@ -13,10 +13,11 @@ const Header = () => {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleLogout = () => {
-    logout()
+    logout
     // Force page reload to clear any cached state
-    window.location.href = '/'
-  }
+    navigate("/")
+    window.location.reload()
+    }
 
   // Close dropdown when clicking outside
   useEffect(() => {

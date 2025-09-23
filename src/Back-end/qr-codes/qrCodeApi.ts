@@ -2,18 +2,20 @@ import { apiSlice } from "../api/apiEntry";
 
 export const qrCodeApi = apiSlice.injectEndpoints({
   endpoints:(builder)=>({
-    getQrCodes: builder.query({
+    getQrCodes: builder.query<any[], any>({
         query:(params)=>({
             url:"/api/v1/qr-codes",
             method:'GET',
             params
-        })
+        }),
+        providesTags: ['QrCode']
     }),
-    generateQrCode: builder.mutation({
+    generateQrCode: builder.mutation<any, string>({
         query:(prescriptionId)=>({
             url:`/api/v1/qr-codes/generate/${prescriptionId}`,
             method:'POST'
-        })
+        }),
+        invalidatesTags: ['QrCode']
     }),
     getQrCodeStats: builder.query({
         query:(qrHash)=>({

@@ -1,4 +1,4 @@
-import { SearchParams } from '../common/base.types';
+import type { SearchParams } from '../common/base.types';
 
 // Patient related types
 export interface Patient {

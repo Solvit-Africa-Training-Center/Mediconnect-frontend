@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
-import { useCreatePatientMutation } from '../Back-end/Api/apiEntry'
+import { useRegisterPatientMutation } from '../Back-end/patient/patientApi'
 
 const AddPatient = () => {
-  const [createPatient, { isLoading }] = useCreatePatientMutation()
+  const [createPatient, { isLoading }] = useRegisterPatientMutation()
   const [formData, setFormData] = useState({
     name: '',
     email: '',

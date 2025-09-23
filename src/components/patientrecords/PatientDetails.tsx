@@ -1,5 +1,6 @@
 import type React from "react"
-import { User } from "lucide-react"
+import { User, FileText, Pill } from "lucide-react"
+import { useGetPatientByIdQuery, useGetPatientHistoryQuery, useGetPatientPrescriptionsQuery } from "../../Back-end/patient/patientApi"
 
 interface Patient {
   id: string
@@ -16,6 +17,22 @@ interface PatientDetailsProps {
 }
 
 const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
+  // Fetch real patient data when patient is selected
+  const { data: patientDetails, isLoading: isLoadingDetails } = useGetPatientByIdQuery(
+    patient?.id || "",
+    { skip: !patient?.id }
+  )
+  
+  const { data: patientHistory, isLoading: isLoadingHistory } = useGetPatientHistoryQuery(
+    patient?.id || "",
+    { skip: !patient?.id }
+  )
+  
+  const { data: patientPrescriptions, isLoading: isLoadingPrescriptions } = useGetPatientPrescriptionsQuery(
+    patient?.id || "",
+    { skip: !patient?.id }
+  )
+
   if (!patient) {
     return (
       <div
@@ -109,12 +126,48 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-gray-100">
+        {/* Medical Records Summary */}
+        <div className="pt-4 border-t border-gray-100 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-3 rounded-lg" style={{ backgroundColor: "#EEF2FF" }}>
+              <div className="flex items-center gap-2 mb-2">
+                <FileText className="w-4 h-4" style={{ color: "#0C7AE9" }} />
+                <span style={{ color: "#29333D" }} className="text-sm font-medium">
+                  Medical History
+                </span>
+              </div>
+              <p style={{ color: "#29333D" }} className="text-lg font-semibold">
+                {isLoadingHistory ? "..." : patientHistory?.length || 0}
+              </p>
+              <p style={{ color: "#29333D" }} className="text-xs opacity-70">
+                Total Records
+              </p>
+            </div>
+            
+            <div className="p-3 rounded-lg" style={{ backgroundColor: "#F0FDF4" }}>
+              <div className="flex items-center gap-2 mb-2">
+                <Pill className="w-4 h-4" style={{ color: "#16A34A" }} />
+                <span style={{ color: "#29333D" }} className="text-sm font-medium">
+                  Prescriptions
+                </span>
+              </div>
+              <p style={{ color: "#29333D" }} className="text-lg font-semibold">
+                {isLoadingPrescriptions ? "..." : patientPrescriptions?.length || patient.prescriptions}
+              </p>
+              <p style={{ color: "#29333D" }} className="text-xs opacity-70">
+                Total Prescriptions
+              </p>
+            </div>
+          </div>
+
           <button
             style={{ backgroundColor: "#0C7AE9" }}
             className="w-full py-2 px-4 text-white rounded-lg hover:opacity-90 transition-opacity font-medium"
+            disabled={isLoadingDetails || isLoadingHistory || isLoadingPrescriptions}
           >
-            View Full Medical History
+            {isLoadingDetails || isLoadingHistory || isLoadingPrescriptions 
+              ? "Loading..." 
+              : "View Full Medical History"}
           </button>
         </div>
       </div>

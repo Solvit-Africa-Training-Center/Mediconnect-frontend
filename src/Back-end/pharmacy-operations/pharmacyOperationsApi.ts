@@ -2,30 +2,34 @@ import { apiSlice } from "../api/apiEntry";
 
 export const pharmacyOperationsApi = apiSlice.injectEndpoints({
   endpoints:(builder)=>({
-    scanQrCode: builder.mutation({
+    scanQrCode: builder.mutation<any, {qrData: string}>({
         query:(data)=>({
             url:"/api/v1/pharmacy/scan",
             method:'POST',
             body:data
-        })
+        }),
+        invalidatesTags: ['PharmacyOperation']
     }),
-    validatePrescription: builder.mutation({
+    validatePrescription: builder.mutation<any, string>({
         query:(prescriptionId)=>({
             url:`/api/v1/pharmacy/validate/${prescriptionId}`,
             method:'POST'
-        })
+        }),
+        invalidatesTags: ['PharmacyOperation', 'Prescription']
     }),
-    dispensePrescription: builder.mutation({
+    dispensePrescription: builder.mutation<any, string>({
         query:(prescriptionId)=>({
             url:`/api/v1/pharmacy/dispense/${prescriptionId}`,
             method:'POST'
-        })
+        }),
+        invalidatesTags: ['PharmacyOperation', 'Prescription']
     }),
-    rejectPrescription: builder.mutation({
+    rejectPrescription: builder.mutation<any, string>({
         query:(prescriptionId)=>({
             url:`/api/v1/pharmacy/reject/${prescriptionId}`,
             method:'POST'
-        })
+        }),
+        invalidatesTags: ['PharmacyOperation', 'Prescription']
     }),
     getPrescriptionLogs: builder.query({
         query:(prescriptionId)=>({

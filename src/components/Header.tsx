@@ -6,7 +6,7 @@ const Header = () => {
   
   const navigate = useNavigate() 
 
-  const handleLoginClick=() => {navigate ("/portals")}
+  const handleLoginClick=() => {navigate ("/portalsSection")}
 
   return (
     <header className="bg-foreground text-card-foreground">

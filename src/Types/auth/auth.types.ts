@@ -11,12 +11,12 @@ export interface ChangePasswordData {
 }
 
 export interface AuthResponse {
-    user: User;
+    user: UserCredentials;
     token: string;
     refreshToken?: string;
 }
 
-export interface User {
+export interface UserCredentials {
     id: string;
     email: string;
     fullName: string;

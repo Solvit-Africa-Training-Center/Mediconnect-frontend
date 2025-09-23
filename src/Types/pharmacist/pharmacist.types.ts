@@ -48,4 +48,4 @@ export interface DispensingSummary {
     dispensedAt?: string;
 }
 
-import { Medication } from '../prescription/prescription.types';
+import type { Medication } from '../prescription/prescription.types';

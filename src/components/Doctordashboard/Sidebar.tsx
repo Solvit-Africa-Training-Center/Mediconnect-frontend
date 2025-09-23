@@ -19,7 +19,6 @@ const Sidebar = () => {
     { id: "dashboard", label: "Dashboard", path: "/doctor-dashboard", icon: "LayoutDashboard" },
     { id: "create-prescription", label: "Create Prescription", path: "/doctor-dashboard/create-prescription", icon: "PlusCircle" },
     { id: "patient-records", label: "Patient Records", path: "/doctor-dashboard/patient-records", icon: "Users" },
-    { id: "add-patient", label: "Add Patient", path: "/doctor-dashboard/add-patient", icon: "Users" },
     { id: "prescription-history", label: "Prescription History", path: "/doctor-dashboard/prescription-history", icon: "FileText" },
 
     { id: "settings", label: "Settings", path: "/doctor-dashboard/settings", icon: "Settings" },
