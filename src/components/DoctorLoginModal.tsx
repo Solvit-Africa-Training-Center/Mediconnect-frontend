@@ -43,60 +43,37 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
       // Validate form data
       loginSchema.parse({ email: formData.email, password: formData.password })
       
-      console.log('🔵 Doctor Login attempt with data:', formData)
-      
       // Call real login API
       const result = await loginMutation(formData).unwrap()
       
-      console.log('✅ Doctor Login API Response:', result)
-      
       // Check if login was successful
       if (!result.success) {
-        console.log('❌ Login failed:', result)
         setErrors({ general: 'Login failed. Please try again.' })
         return
       }
       
-      console.log('📊 Response structure:', {
-        hasUser: 'data' in result && !!result.data?.user,
-        hasToken: 'data' in result && !!result.data?.token,
-        userRole: 'data' in result ? result.data?.user?.role : undefined,
-        fullResult: result
-      })
-      
       // Ensure the user is a doctor
       if (!('data' in result) || result.data?.user?.role !== "doctor") {
-        console.log('❌ Role check failed. Expected: doctor, Got:', 'data' in result ? result.data?.user?.role : 'no data')
         setErrors({ general: 'Access denied. Doctor credentials required.' })
         return
       }
 
       // Store user data in context
       const userData = result.data.user
-      console.log('👤 User data to store:', userData)
       handleLogin(userData)
       
       // Store token for session
       const token = result.data.token
-      console.log('🔑 Token found:', !!token, token ? 'Token stored' : 'No token found')
       if (token) {
         localStorage.setItem('token', token)
       }
       
       // Navigate to doctor dashboard
-      console.log('🚀 Navigating to doctor dashboard')
       setFormData({ email: "", password: "" })
       navigate('/doctor-dashboard')
       onClose()
       
     } catch (error: unknown) {
-      console.log('❌ Doctor Login Error:', error)
-      console.log('📝 Error details:', {
-        type: typeof error,
-        hasErrors: error && typeof error === 'object' && 'errors' in error,
-        hasData: error && typeof error === 'object' && 'data' in error,
-        fullError: error
-      })
       
       if (error && typeof error === 'object' && 'errors' in error) {
         // Handle validation errors
@@ -109,16 +86,13 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
             }
           })
         }
-        console.log('🔍 Validation errors:', newErrors)
         setErrors(newErrors)
       } else if (error && typeof error === 'object' && 'data' in error) {
         // Handle API errors
         const data = (error as any).data
-        console.log('🌐 API error data:', data)
         setErrors({ general: data?.message || 'Login failed' })
       } else {
         // Handle network errors
-        console.log('📡 Network error')
         setErrors({ general: 'Network error. Please try again.' })
       }
     }
@@ -158,7 +132,6 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
             <Input
               name="email"
               type="email"
-              autoComplete="off"
               data-lpignore="true"
               className={`w-full h-12 px-4 border-2 rounded-lg focus:outline-none transition-colors ${
                 errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
@@ -166,7 +139,6 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              disabled={isLoading}
               required
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -178,7 +150,6 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
               <Input
                 name="password"
                 type={showPassword ? "text" : "password"}
-                autoComplete="off"
                 data-lpignore="true"
                 placeholder="Enter your password"
                 value={formData.password}
@@ -186,7 +157,6 @@ const DoctorLoginModal = ({ isOpen, onClose }: DoctorLoginModalProps) => {
                 className={`w-full h-12 px-4 pr-12 border-2 rounded-lg focus:outline-none transition-colors ${
                   errors.password ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
                 }`}
-                disabled={isLoading}
                 required
               />
               <button
