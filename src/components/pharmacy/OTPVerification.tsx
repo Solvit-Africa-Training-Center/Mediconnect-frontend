@@ -1,39 +1,39 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 
-const OTPVerification: React.FC = () => {
-  const [otp, setOtp] = useState<string[]>(new Array(7).fill(''))
-  const [email] = useState('usbsenior142@gmail.com')
-  const inputRefs = useRef<HTMLInputElement[]>([])
+export default function OTPVerification() {
+  const [otp, setOtp] = useState<string[]>(new Array(7).fill(''));
+  const [email] = useState('usbsenior142@gmail.com');
+  const inputRefs = useRef<HTMLInputElement[]>([]);
 
   useEffect(() => {
     if (inputRefs.current[0]) {
-      inputRefs.current[0].focus()
+      inputRefs.current[0].focus();
     }
-  }, [])
+  }, []);
 
   const handleChange = (index: number, value: string) => {
-    if (isNaN(Number(value))) return
+    if (isNaN(Number(value))) return;
 
-    const newOtp = [...otp]
-    newOtp[index] = value.substring(value.length - 1)
-    setOtp(newOtp)
+    const newOtp = [...otp];
+    newOtp[index] = value.substring(value.length - 1);
+    setOtp(newOtp);
 
     if (value && index < 6) {
-      inputRefs.current[index + 1].focus()
+      inputRefs.current[index + 1].focus();
     }
-  }
+  };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus()
+      inputRefs.current[index - 1].focus();
     }
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const enteredOtp = otp.join('')
-    alert(`OTP ${enteredOtp} submitted for verification!`)
-  }
+    e.preventDefault();
+    const enteredOtp = otp.join('');
+    alert(`OTP ${enteredOtp} submitted for verification!`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -41,15 +41,11 @@ const OTPVerification: React.FC = () => {
         <h1 className="text-center text-3xl font-bold text-gray-900 mb-2">
           Verify Your Identity
         </h1>
-
+        
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <div className="mb-6 text-center">
-            <p className="text-sm text-gray-600 mb-1">
-              Code sent to
-            </p>
-            <p className="text-md font-medium text-gray-900">
-              {email}
-            </p>
+            <p className="text-sm text-gray-600 mb-1">Code sent to</p>
+            <p className="text-md font-medium text-gray-900">{email}</p>
           </div>
 
           <p className="text-sm text-gray-600 text-center mb-8">
@@ -70,7 +66,7 @@ const OTPVerification: React.FC = () => {
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   ref={(ref) => {
                     if (ref) {
-                      inputRefs.current[index] = ref
+                      inputRefs.current[index] = ref;
                     }
                   }}
                   maxLength={1}
@@ -78,14 +74,12 @@ const OTPVerification: React.FC = () => {
               ))}
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Verify Identity
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Verify Identity
+            </button>
           </form>
 
           <div className="mt-6 text-center">
@@ -108,7 +102,5 @@ const OTPVerification: React.FC = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default OTPVerification

@@ -1,6 +1,4 @@
-import React from 'react'
-
-const ReadyMedicalRequest: React.FC = () => {
+export default function ReadyMedicalRequest() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white max-w-md w-full rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -35,13 +33,11 @@ const ReadyMedicalRequest: React.FC = () => {
           {/* Return link */}
           <div className="mt-6 text-center">
             <a href="#" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-              Return to Dashboard
+              Return to Disableuser
             </a>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default ReadyMedicalRequest

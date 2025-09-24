@@ -7,7 +7,7 @@ import PrescriptionHistory from "../pages/doctorDashboard/PrescriptionHistory"
 import Settings from "../pages/doctorDashboard/Settings"
 import PatientLanding from "../pages/patient/PatientLanding"
 import PatientDashboard from "../pages/patient/PatientDashboard"
-import PharmacyDashbaord from "../pages/PharmacyDashboard/pharmacyDashboard"
+import PharmacyDashboard from "../pages/pharmacy/PharnacyDashoard"
 import MedicalRecordsRequest from "../pages/patient/MedicalRecordsRequest"
 import OTPVerification from "../components/pharmacy/OTPVerification"
 import ProtectedRoute from "../components/ProtectedRoute"
@@ -27,7 +27,7 @@ const AppRoutes = () => {
       <Route path="/patient/*" element={<ProtectedRoute requiredRole="patient"><PatientDashboard /></ProtectedRoute>} />
       <Route path="/patient/medical-records-request" element={<ProtectedRoute requiredRole="patient"><MedicalRecordsRequest /></ProtectedRoute>} />
       <Route path="/otp-verification" element={<OTPVerification />} />
-      <Route path="/pharmacist-dashboard" element={<PharmacyDashbaord/>} />
+      <Route path="/pages/pharmacy" element={<PharmacyDashboard/>} />
       <Route path="/PortalsSection" element={<PortalsSection />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>

@@ -27,7 +27,7 @@ const PortalsSection = () => {
             icon={Pill}
             title="Pharmacist Tools"
             description="Verify prescriptions, manage drug inventory, scanner and track medication on dispensed."
-            link="/pharmacist-dashboard"
+            link="/pages/pharmacy"
           />
         </div>
       </div>
