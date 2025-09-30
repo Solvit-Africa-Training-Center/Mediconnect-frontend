@@ -6,7 +6,7 @@ const PrescriptionMedicines = () => {
   const { prescription, addMedication, removeMedication } = usePrescription()
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm">
+    <div className="bg-white rounded-xl shadow-sm">
       <h3 className="text-lg font-semibold text-[#29333D] mb-2">Prescription Medicines</h3>
       <p className="text-[#29333D] opacity-70 mb-6">
         Add multiple medicines to the prescription with dosage and instructions

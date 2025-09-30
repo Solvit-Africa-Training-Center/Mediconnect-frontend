@@ -1,4 +1,3 @@
-
 import LoginModal from "./LoginModal"
 import { useContext } from "react"
 import { Shield, QrCode, Clock } from "lucide-react"

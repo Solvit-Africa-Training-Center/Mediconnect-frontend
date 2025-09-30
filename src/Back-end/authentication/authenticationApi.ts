@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiEntry";
-import type { Doctor, Patient, LoginCredentials, UserCredentials } from "../../Types";
+import type { Doctor, Patient, LoginCredentials, UserCredentials, AuthResponse, ChangePasswordData } from "../../Types";
 
 // Generic login response
 interface LoginSuccessResponse<T = UserCredentials> {
@@ -31,14 +31,15 @@ export const authenticationApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Auth']
     }),
-    registerPatient: builder.mutation<LoginResponse<Patient>, Patient>({
-      query: (body) => ({
-        url: '/api/v1/auth/patient/register',
-        method: 'POST',
-        body
-      }),
-      invalidatesTags: ['Auth']
-    }),
+registerPatient: builder.mutation<AuthResponse, Partial<UserCredentials & Patient>>({
+  query: (body) => ({
+    url: '/api/v1/patients/register', // <-- correct endpoint
+    method: 'POST',
+    body,
+  }),
+  transformResponse: (response: AuthResponse) => response,
+  invalidatesTags: ['Auth'],
+}),
     registerDoctor: builder.mutation<LoginResponse<Doctor>, Doctor>({
       query: (body) => ({
         url: '/api/v1/auth/doctor/register',
@@ -52,6 +53,7 @@ export const authenticationApi = apiSlice.injectEndpoints({
         url: '/api/v1/auth/profile',
         method: 'GET'
       }),
+      transformResponse: (response: any) => response.data,
       providesTags: ['Auth']
     }),
 

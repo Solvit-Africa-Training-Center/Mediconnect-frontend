@@ -1,43 +1,35 @@
-interface StatsCardProps {
+import React from 'react';
+import type { LucideIcon } from 'lucide-react';
+
+interface StatCardProps {
   title: string;
   value: number;
-  change: string;
-  icon?: string;
+  subtitle: string;
+  color: 'blue' | 'yellow' | 'green';
+  icon: LucideIcon; // Pass the icon component here
 }
 
-export default function StatsCard({
-  title,
-  value,
-  change,
-  icon,
-}: StatsCardProps) {
-  // Split change for coloring
-  const [percent, ...rest] = change.split(" ");
-  const restText = rest.join(" ");
-  const percentColor = percent.startsWith("+")
-    ? "text-green-500"
-    : percent.startsWith("-")
-    ? "text-red-500"
-    : "text-gray-500";
+const StatCard: React.FC<StatCardProps> = ({ title, value, subtitle, color, icon: Icon }) => {
+  const colorClasses = {
+    blue: 'text-blue-600 bg-blue-50',
+    yellow: 'text-yellow-600 bg-yellow-50',
+    green: 'text-green-600 bg-green-50',
+  };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
-      {/* Title row with icon on the right */}
-      <div className="flex justify-between items-center mb-2">
-        <p className="text-sm text-gray-500 font-medium">{title}</p>
-        {icon && (
-          <img src={icon} alt={title} className="w-5 h-5 object-contain" />
-        )}
+    <div className="card p-6 shadow-sm rounded-lg">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+        <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
+          <Icon size={20} />
+        </div>
       </div>
-
-      {/* Value */}
-      <p className="text-2xl  text-[#1F262E]">{value}</p>
-
-      {/* Change */}
-      <p className="text-sm">
-        <span className={`${percentColor} font-semibold`}>{percent}</span>{" "}
-        <span className="text-gray-500">{restText}</span>
-      </p>
+      <div>
+        <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
+        <p className="text-sm text-gray-500">{subtitle}</p>
+      </div>
     </div>
   );
-}
+};
+
+export default StatCard;

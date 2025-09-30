@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom"
 import { LogOut, User, ChevronDown } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
-const Header = () => {
+interface HeaderProps {
+  title?: string;
+  subtitle?: string;
+}
+const Header = ({ title, subtitle }: HeaderProps) => {
   const { isCollapsed } = useSidebar()
   const { user, logout } = useAuth()
   const navigate = useNavigate()
@@ -36,8 +40,8 @@ const Header = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Medical Dashboard</h1>
-          <p className="text-gray-600">Manage prescriptions and patient records</p>
+          <h1 className="text-2xl font-medium/50 text-gray-900">{title || "Medical Dashboard"}</h1>
+          <p className="text-gray-600">{subtitle || "Manage prescriptions and patient records"}</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="relative" ref={dropdownRef}>

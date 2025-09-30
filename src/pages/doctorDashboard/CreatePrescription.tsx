@@ -16,7 +16,7 @@ const CreatePrescriptionContent = () => {
       <Sidebar />
       <Header />
 
-      <main className={`transition-all duration-300 pt-5 p- ${isCollapsed ? "pl-5" : "pl-5"}`}>
+      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "ml-16" : "ml-64"}`}>
         <div>
           <div>
             <h1 className="text-3xl font-semibold text-[#29333D]">Create New Prescription</h1>

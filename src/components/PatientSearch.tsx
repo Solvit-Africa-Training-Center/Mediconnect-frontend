@@ -13,7 +13,7 @@ const PatientSearch = () => {
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null)
 
   // Fetch patients (search or all)
-  const { data: searchResults, isLoading: isSearching } = useSearchPatientsQuery(
+  const { data: searchResults, isLoading: isSearching, } = useSearchPatientsQuery(
     { query: searchQuery },
     { skip: searchQuery.length < 2 }
   )
@@ -21,14 +21,14 @@ const PatientSearch = () => {
   const { data: allPatients, isLoading: isLoadingAll } = useGetPatientsQuery()
 
   const { data: patientRecords, isLoading: isLoadingRecords } =
-    useGetPatientHistoryQuery(selectedPatient ?? "", {
+    useGetPatientHistoryQuery(selectedPatient || "", {
       skip: !selectedPatient,
     })
-
+  
   // Merge search results or fallback to all patients
   const patients: Patient[] = searchQuery
     ? searchResults ?? []
-    : allPatients ?? []
+    : allPatients?.patients ?? []
 
   return (
     <div>

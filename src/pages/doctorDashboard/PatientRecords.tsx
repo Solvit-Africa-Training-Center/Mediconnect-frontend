@@ -28,8 +28,8 @@ const PatientRecordsContent = () => {
       <Sidebar />
       <Header />
 
-      <main className={`pt-5 transition-all duration-300 ${isCollapsed ? "pl-5" : "pl-5"}`}>
-        <div className="p-">
+      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "ml-16" : "ml-64"}`}>
+        <div>
           <div>
             <h1 style={{ color: "#29333D" }} className="text-2xl font-semibold">
               Patient Records

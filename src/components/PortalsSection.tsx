@@ -1,10 +1,12 @@
-import { Stethoscope, Users, Pill } from "lucide-react"
-import PortalCard from "./PortalCard"
-import { useState } from "react"
-import DoctorLoginModal from "./DoctorLoginModal"
+import { Stethoscope, Users, Pill } from "lucide-react";
+import PortalCard from "./PortalCard";
+import { useState } from "react";
+import DoctorLoginModal from "./DoctorLoginModal";
+import PharmacyLoginModal from "./PharmacyLoginModal"; // Import the PharmacyLoginModal
 
 const PortalsSection = () => {
-  const [isDoctorLoginOpen, setIsDoctorLoginOpen] = useState(false)
+  const [isDoctorLoginOpen, setIsDoctorLoginOpen] = useState(false);
+  const [isPharmacyLoginOpen, setIsPharmacyLoginOpen] = useState(false); // Add state for pharmacy login modal
 
   return (
     <section className="py-16 md:py-25 bg-white/50">
@@ -27,7 +29,8 @@ const PortalsSection = () => {
             icon={Pill}
             title="Pharmacist Tools"
             description="Verify prescriptions, manage drug inventory, scanner and track medication on dispensed."
-            link="/pages/pharmacy"
+            link="#" // Remove direct link
+            onClick={() => setIsPharmacyLoginOpen(true)} // Open the Pharmacy Login Modal
           />
         </div>
       </div>
@@ -37,8 +40,14 @@ const PortalsSection = () => {
         isOpen={isDoctorLoginOpen}
         onClose={() => setIsDoctorLoginOpen(false)}
       />
-    </section>
-  )
-}
 
-export default PortalsSection
+      {/* Pharmacy Login Modal */}
+      <PharmacyLoginModal
+        isOpen={isPharmacyLoginOpen}
+        onClose={() => setIsPharmacyLoginOpen(false)}
+      />
+    </section>
+  );
+};
+
+export default PortalsSection;

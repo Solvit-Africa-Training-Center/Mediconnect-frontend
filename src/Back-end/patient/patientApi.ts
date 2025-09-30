@@ -3,23 +3,26 @@ import type { Patient, MedicalVisit } from "../../Types";
 
 export const patientApi = apiSlice.injectEndpoints({
   endpoints:(builder)=>({
-    getPatients: builder.query<Patient[], void>({
+    getPatients: builder.query<number, void>({
         query:()=>({
             url:"/api/v1/patients",
             method:'GET'
         }),
+        transformResponse: (response: { success: boolean; data: Patient[]; pagination: { total: number } }) => {
+        return response.pagination.total}
+        ,
         providesTags: ['Patient']
     }),
     registerPatient: builder.mutation<Patient, Partial<Patient>>({
         query:(data)=>({
-            url:"/api/v1/patients/register",
+            url:"/patients/register",
             method:'POST',
             body:data
         }),
         invalidatesTags: ['Patient']
     }),
     searchPatients: builder.query<Patient[], { query: string }>({
-    query: ({ query }) => ({
+      query: ({ query }) => ({
         url: "/api/v1/patients/search",
         method: "GET",
         params: { query }

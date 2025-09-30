@@ -52,7 +52,7 @@ const PatientLoginModal = ({ isOpen, onClose }: PatientLoginModalProps) => {
 
       // Role check
       if ((user as any).role === "patient") {
-        navigate("/patient/dashboard")
+        navigate("/patient-dashboard")
         onClose()
       } else {
         setErrors({ general: "Access denied. Patient credentials required." })

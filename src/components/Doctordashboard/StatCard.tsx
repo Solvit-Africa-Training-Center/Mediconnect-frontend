@@ -9,7 +9,7 @@ const TREND_COLORS = {
 
 interface StatCardProps {
   title: string
-  value: string | number
+  value:  number | string
   subtitle: string
   icon: LucideIcon
   trend?: "up" | "down" | "neutral"

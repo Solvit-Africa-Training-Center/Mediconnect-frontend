@@ -1,5 +1,6 @@
 import { apiSlice } from "../api/apiEntry";
 import type { User, Doctor, Appointment } from "../../Types";
+import { DoctorStats } from "../../Types";
 
 export const doctorApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,7 +17,7 @@ export const doctorApi = apiSlice.injectEndpoints({
     }),
 
     // GET DOCTOR STATS
-    getDoctorStats: builder.query<any, void>({
+    getDoctorStats: builder.query<DoctorStats, void>({
       query: () => ({ url: "/doctor/stats", method: "GET" }),
       providesTags: ["Doctor"],
     }),
