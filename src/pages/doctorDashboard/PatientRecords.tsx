@@ -24,22 +24,27 @@ const PatientRecordsContent = () => {
   }
 
   return (
-    <div className="min-h-screen  bg-purple-50">
+    <div className="min-h-screen bg-purple-50">
       <Sidebar />
-      <Header />
+      <Header
+        title="Patient Records"
+        subtitle="Search and manage patient medical records"
+      />
 
-      <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "ml-16" : "ml-64"}`}>
-        <div>
-          <div>
-            <h1 style={{ color: "#29333D" }} className="text-2xl font-semibold">
+      <main
+        className={`transition-all duration-300 px-6 pt-24 pb-12 ${isCollapsed ? "ml-16" : "ml-64"}`}
+      >
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold" style={{ color: "#29333D" }}>
               Patient Records
             </h1>
-            <p style={{ color: "#29333D" }} className="opacity-70">
+            <p style={{ color: "#29333D", opacity: 0.7 }}>
               Search and manage patient medical records
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <PatientDirectory onPatientSelect={handlePatientSelect} />
             </div>

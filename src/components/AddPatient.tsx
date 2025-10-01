@@ -1,24 +1,33 @@
-import  AddPatientForm  from "./AddPatientForm"
-import { useSidebar } from "../contexts/SidebarContext"
+import AddPatientForm from "./AddPatientForm"
 import Sidebar from "./Doctordashboard/Sidebar"
 import Header from "./Doctordashboard/Header"
+import { SidebarProvider, useSidebar } from "../contexts/SidebarContext"
 
-export default function AddPatient() {
+const AddPatientContent = () => {
   const { isCollapsed } = useSidebar()
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-purple-50">
       <Sidebar />
+      <Header title="Add New Patient" subtitle="Register a new patient here" />
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        <Header title="Add New Patient" subtitle="Register a new patient here" />
-        {/* Main Content Area */}
-        <main className={`flex-1 overflow-auto bg-purple-50 mt-20 transition-all duration-300 ${isCollapsed ? "ml-16" : "ml-64"}`}>
+      <main
+        className={`transition-all duration-300 px-6 pt-24 pb-12 ${isCollapsed ? "ml-16" : "ml-64"}`}
+      >
+        <div className="max-w-5xl mx-auto">
           <AddPatientForm />
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }
+
+const AddPatient = () => {
+  return (
+    <SidebarProvider>
+      <AddPatientContent />
+    </SidebarProvider>
+  )
+}
+
+export default AddPatient
