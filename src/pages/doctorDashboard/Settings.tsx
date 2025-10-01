@@ -9,25 +9,31 @@ const SettingsContent = () => {
   const { isCollapsed } = useSidebar()
 
   return (
-   <div
-  className={`transition-all duration-300 ${isCollapsed ? "pl-5" : "pl-5"} pt-5 bg-purple-50 min-h-screen`}
->
+    <div className="min-h-screen bg-purple-50">
+      <Sidebar />
+      <Header title="Settings" subtitle="Manage your profile, clinic information and security settings" />
 
-      <div className="p-">
-        <div>
-          <h1 className="text-2xl font-bold" style={{ color: "#131A20" }}>
-            Settings
-          </h1>
-          <p style={{ color: "#29333D" }}>Manage your profile, clinic information and security settings</p>
+      <main
+        className={`transition-all duration-300 px-6 pt-24 pb-12 ${isCollapsed ? "ml-16" : "ml-64"}`}
+      >
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div>
+            <h1 className="text-2xl font-bold" style={{ color: "#131A20" }}>
+              Settings
+            </h1>
+            <p style={{ color: "#29333D" }}>
+              Manage your profile, clinic information and security settings
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <ProfileInformation />
+            <ClinicInformation />
+          </div>
+
+          <SecurityPrivacy />
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ProfileInformation />
-          <ClinicInformation />
-        </div>
-
-        <SecurityPrivacy />
-      </div>
+      </main>
     </div>
   )
 }
@@ -35,13 +41,7 @@ const SettingsContent = () => {
 const Settings = () => {
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex-1">
-          <Header />
-          <SettingsContent />
-        </div>
-      </div>
+      <SettingsContent />
     </SidebarProvider>
   )
 }
