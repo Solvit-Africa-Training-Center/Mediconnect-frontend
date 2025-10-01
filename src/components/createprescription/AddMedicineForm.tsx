@@ -13,22 +13,22 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
   const [formData, setFormData] = useState({
     name: "",
     dosage: "",
-    frequency: "",
     duration: "",
-    quantity: 1,
+    frequency: "",
+    quantity: 20, // Default quantity
     instructions: "",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (formData.name && formData.dosage && formData.frequency && formData.duration) {
+    if (formData.name && formData.dosage && formData.frequency) {
       onAddMedicine(formData)
       setFormData({
         name: "",
         dosage: "",
-        frequency: "",
         duration: "",
-        quantity: 1,
+        frequency: "",
+        quantity: 20,
         instructions: "",
       })
     }
@@ -76,6 +76,19 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
               />
             </div>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Duration <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="e.g., 7 days"
+              value={formData.duration}
+              onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+              className="w-full px-3 py-2.5 bg-purple-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
+              required
+            />
+          </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -96,27 +109,23 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
                 <option value="as needed">As needed</option>
               </select>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Duration <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={formData.duration}
-                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                className="w-full px-3 py-2.5 bg-purple-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
-                required
-              >
-                <option value="">Select duration</option>
-                <option value="3 days">3 days</option>
-                <option value="5 days">5 days</option>
-                <option value="7 days">7 days</option>
-                <option value="10 days">10 days</option>
-                <option value="14 days">14 days</option>
-                <option value="30 days">30 days</option>
-              </select>
-            </div>
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Quantity <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                placeholder="e.g., 30"
+                value={formData.quantity}
+                onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value, 10) || 0 })}
+                className="w-full px-3 py-2.5 bg-purple-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
+                required
+              />
+            </div>
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Special Instructions</label>
             <input

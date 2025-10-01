@@ -1,6 +1,7 @@
 import { apiSlice } from "../api/apiEntry";
-import type { User, Doctor, Appointment } from "../../Types";
-import { DoctorStats } from "../../Types";
+import type { Doctor } from "../../Types/doctor/doctor.types";
+import type { Appointment } from "../../Types/appointment/appointment.types";
+import type { DoctorStats } from "../../Types";
 
 export const doctorApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,6 +23,12 @@ export const doctorApi = apiSlice.injectEndpoints({
       providesTags: ["Doctor"],
     }),
 
+    // GET DOCTOR PROFILE
+    getDoctorProfile: builder.query<Doctor, void>({
+      query: () => ({ url: `/doctors/profile/me`, method: "GET" }),
+      providesTags: ["Doctor"],
+    }),
+
     // UPDATE DOCTOR PROFILE
     updateDoctorProfile: builder.mutation<Doctor, Partial<Doctor>>({
       query: (body) => ({ url: "/doctors/profile", method: "PATCH", body }),
@@ -31,19 +38,19 @@ export const doctorApi = apiSlice.injectEndpoints({
     // GET DOCTOR'S APPOINTMENTS
     getDoctorAppointments: builder.query<Appointment[], void>({
       query: () => ({ url: "/doctors/appointments", method: "GET" }),
-      providesTags: ["Appointment"],
+      providesTags: ["Doctor"],
     }),
 
     // APPROVE APPOINTMENT
     approveAppointment: builder.mutation<Appointment, string>({
       query: (id) => ({ url: `/doctors/appointments/${id}/approve`, method: "PATCH" }),
-      invalidatesTags: ["Appointment"],
+      invalidatesTags: ["Doctor"],
     }),
 
     // REJECT APPOINTMENT
     rejectAppointment: builder.mutation<Appointment, string>({
       query: (id) => ({ url: `/doctors/appointments/${id}/reject`, method: "PATCH" }),
-      invalidatesTags: ["Appointment"],
+      invalidatesTags: ["Doctor"],
     }),
 
     // DELETE DOCTOR PROFILE
@@ -57,6 +64,7 @@ export const doctorApi = apiSlice.injectEndpoints({
 export const {
   useGetDoctorsQuery,
   useGetDoctorByIdQuery,
+  useGetDoctorProfileQuery,
   useGetDoctorStatsQuery,
   useUpdateDoctorProfileMutation,
   useGetDoctorAppointmentsQuery,

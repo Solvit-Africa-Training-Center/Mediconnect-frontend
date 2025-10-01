@@ -15,7 +15,6 @@ interface PatientLoginModalProps {
 
 const PatientLoginModal = ({ isOpen, onClose }: PatientLoginModalProps) => {
   const { login: loginContext } = useAuth()
-  const navigate = useNavigate()
   const [loginMutation, { isLoading }] = useLoginMutation()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState<LoginCredentials>({ email: "", password: "" })
@@ -49,14 +48,8 @@ const PatientLoginModal = ({ isOpen, onClose }: PatientLoginModalProps) => {
       const { user, token } = result.data
       loginContext(user)
       localStorage.setItem("authToken", token)
-
-      // Role check
-      if ((user as any).role === "patient") {
-        navigate("/patient-dashboard")
-        onClose()
-      } else {
-        setErrors({ general: "Access denied. Patient credentials required." })
-      }
+      
+      onClose()
 
     } catch (err) {
       if (err instanceof ZodError) {

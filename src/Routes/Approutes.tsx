@@ -3,8 +3,6 @@ import Homepage from "../pages/Homepage";
 import PatientLanding from "../pages/patient/PatientLanding";
 import PatientDashboard from "../pages/patient/PatientDashboard";
 import MedicalRecordsRequest from "../pages/patient/MedicalRecordsRequest";
-import PortalsSection from "../components/PortalsSection";
-import Unauthorized from "../components/Unauthorized";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PharmacyRoutes from "@/components/pharmacy/PharmacyRoutes";
 import DoctorRoutes from "./DoctorRoutes";
@@ -22,8 +20,6 @@ const AppRoutes = () => {
       <Route index element={<PharmacyLayout />} /> 
       <Route path="dashboard" element={<PharmacyRoutes />} />
       </Route>
-      <Route path="/PortalsSection" element={<PortalsSection />} />
-      <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>
   );
 };
