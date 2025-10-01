@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 import type { Patient } from '../Types/patient/patient.types'
-import type { Medication, CreatePrescriptionData } from '../Types/prescription/prescription.types'
+import type { Medication } from '../Types/prescription/prescription.types'
 
 interface PrescriptionState {
   selectedPatient: Patient | null

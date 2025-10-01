@@ -17,20 +17,22 @@ const CreatePrescriptionContent = () => {
       <Header />
 
       <main className={`transition-all duration-300 pt-20 p-6 ${isCollapsed ? "ml-16" : "ml-64"}`}>
-        <div>
-          <div>
+        <div className="space-y-6">
+          <div className="mb-6">
             <h1 className="text-3xl font-semibold text-[#29333D]">Create New Prescription</h1>
             <p className="text-[#29333D] opacity-70 text-lg">Create and send prescriptions to patients</p>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            <div className="xl:col-span-2">
+            <div className="xl:col-span-2 space-y-6">
               <PatientSearch />
               <DiagnosisNotes />
               <PrescriptionMedicines />
             </div>
-            <div>
-              <PrescriptionSummary />
+            <div className="relative">
+              <div className="sticky top-24 space-y-6">
+                <PrescriptionSummary />
+              </div>
             </div>
           </div>
 

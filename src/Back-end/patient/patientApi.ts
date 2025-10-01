@@ -1,15 +1,14 @@
 import { apiSlice } from "../api/apiEntry";
-import type { Patient, MedicalVisit } from "../../Types";
+import type { Patient } from "../../Types/patient/patient.types";
 
 export const patientApi = apiSlice.injectEndpoints({
   endpoints:(builder)=>({
-    getPatients: builder.query<number, void>({
+    getPatients: builder.query<Patient[], void>({
         query:()=>({
             url:"/api/v1/patients",
             method:'GET'
         }),
-        transformResponse: (response: { success: boolean; data: Patient[]; pagination: { total: number } }) => {
-        return response.pagination.total}
+        transformResponse: (response: { success: boolean; data: Patient[] }) => response.data
         ,
         providesTags: ['Patient']
     }),
@@ -27,23 +26,26 @@ export const patientApi = apiSlice.injectEndpoints({
         method: "GET",
         params: { query }
     }),
+    transformResponse: (response: { success: boolean; data: Patient[] }) => {
+      return response.data
+    },
     providesTags: ["Patient"],
     }),
     getPatientByReference: builder.query({
         query:(referenceNumber)=>({
-            url:`/api/v1/patients/reference/${referenceNumber}`,
+            url:`/patients/reference/${referenceNumber}`,
             method:'GET'
         })
     }),
     getPatientById: builder.query({
         query:(patientId)=>({
-            url:`/api/v1/patients/${patientId}`,
+            url:`/patients/${patientId}`,
             method:'GET'
         })
     }),
     updatePatient: builder.mutation({
         query:({patientId, data})=>({
-            url:`/api/v1/patients/${patientId}`,
+            url:`/patients/${patientId}`,
             method:'PUT',
             body:data
         })
@@ -53,14 +55,6 @@ export const patientApi = apiSlice.injectEndpoints({
             url:`/api/v1/patients/${patientId}/history`,
             method:'GET'
         })
-    }),
-    createMedicalVisit: builder.mutation<MedicalVisit, {patientId: string, data: Partial<MedicalVisit>}>({
-        query:({patientId, data})=>({
-            url:`/api/v1/patients/${patientId}/visits`,
-            method:'POST',
-            body:data
-        }),
-        invalidatesTags: ['Patient']
     }),
     createPrescription: builder.mutation({
         query:({patientId, data})=>({
@@ -73,7 +67,16 @@ export const patientApi = apiSlice.injectEndpoints({
         query:(patientId)=>({
             url:`/api/v1/patients/${patientId}/prescriptions`,
             method:'GET'
-        })
+        }),
+        providesTags: ["Patient"]
+    }),
+    getPrescriptions: builder.query<any[], void>({
+        query:()=>({
+            url:`/api/v1/prescriptions`,
+            method:'GET'
+        }),
+        transformResponse: (response: { success: boolean; data: any[] }) => response.data,
+        providesTags: ["Patient"]
     })
   })
 })
@@ -86,7 +89,7 @@ export const {
   useGetPatientByIdQuery,
   useUpdatePatientMutation,
   useGetPatientHistoryQuery,
-  useCreateMedicalVisitMutation,
   useCreatePrescriptionMutation,
-  useGetPatientPrescriptionsQuery
+  useGetPatientPrescriptionsQuery,
+  useGetPrescriptionsQuery
 } = patientApi

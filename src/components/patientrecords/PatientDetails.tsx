@@ -2,16 +2,6 @@ import type React from "react"
 import { User, FileText, Pill } from "lucide-react"
 import { useGetPatientByIdQuery, useGetPatientHistoryQuery, useGetPatientPrescriptionsQuery } from "../../Back-end/patient/patientApi"
 
-interface Patient {
-  id: string
-  name: string
-  patientId: string
-  gender: string
-  phone: string
-  lastVisit: string
-  prescriptions: number
-}
-
 interface PatientDetailsProps {
   patient: Patient | null
 }
@@ -75,7 +65,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Patient Name
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patient.name}
+              {patientDetails.fullName}
             </p>
           </div>
           <div>
@@ -83,7 +73,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Patient ID
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patient.patientId}
+              {patientDetails.referenceNumber}
             </p>
           </div>
         </div>
@@ -94,7 +84,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Gender
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {patient.gender}
+              {patientDetails.gender}
             </p>
           </div>
           <div>
@@ -102,7 +92,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Phone
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {patient.phone}
+              {patientDetails.phone}
             </p>
           </div>
         </div>
@@ -113,7 +103,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Last Visit
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {patient.lastVisit}
+              {new Date(patientDetails.createdAt).toLocaleDateString()}
             </p>
           </div>
           <div>
@@ -121,7 +111,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Total Prescriptions
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patient.prescriptions}
+              {patientPrescriptions?.length ?? 0}
             </p>
           </div>
         </div>
@@ -152,7 +142,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
                 </span>
               </div>
               <p style={{ color: "#29333D" }} className="text-lg font-semibold">
-                {isLoadingPrescriptions ? "..." : patientPrescriptions?.length || patient.prescriptions}
+                {isLoadingPrescriptions ? "..." : patientPrescriptions?.length ?? 0}
               </p>
               <p style={{ color: "#29333D" }} className="text-xs opacity-70">
                 Total Prescriptions

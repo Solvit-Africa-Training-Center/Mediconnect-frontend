@@ -10,7 +10,6 @@ interface AddMedicineFormProps {
 }
 
 const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps) => {
-  const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     dosage: "",
@@ -32,27 +31,7 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
         quantity: 1,
         instructions: "",
       })
-      setShowForm(false)
     }
-  }
-
-  if (!showForm) {
-    return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <div className="mb-4">
-          <h3 className="text-lg font-medium text-gray-900 mb-1">Prescription Medicines</h3>
-          <p className="text-sm text-gray-500">Add multiple medicines to the prescription with dosage and instructions</p>
-        </div>
-        
-        <button
-          onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-        >
-          <Plus size={18} />
-          Add First Medicine
-        </button>
-      </div>
-    )
   }
 
   return (
@@ -64,7 +43,7 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
 
       <div className="mb-4">
         <h4 className="text-base font-medium text-gray-900 mb-4 flex items-center gap-2">
-          Add First Medicine
+          Add Medicine #{medicineCount + 1}
           <Plus size={16} className="text-blue-600" />
         </h4>
         
@@ -154,7 +133,7 @@ const AddMedicineForm = ({ onAddMedicine, medicineCount }: AddMedicineFormProps)
             className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-medium transition-colors"
           >
             <Plus size={16} />
-            Add First Medicine
+            Add Medicine
           </button>
         </form>
       </div>

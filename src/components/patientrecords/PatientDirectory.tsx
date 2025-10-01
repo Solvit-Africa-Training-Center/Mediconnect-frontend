@@ -2,6 +2,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Search, Phone, Calendar, Eye } from "lucide-react"
 import { useGetPatientsQuery, useSearchPatientsQuery } from "../../Back-end/patient/patientApi"
+import type { Patient } from "../../Types/patient/patient.types"
 
 // Debounce hook
 function useDebounce(value: string, delay: number) {
@@ -13,30 +14,13 @@ function useDebounce(value: string, delay: number) {
   return debouncedValue
 }
 
-interface Patient {
-  id: string
-  name: string
-  patientId: string
-  gender: string
-  phone: string
-  lastVisit: string
-  prescriptions: number
-}
-
-// Mock data fallback
-const mockPatients: Patient[] = [
-  { id: "1", name: "John Doe", patientId: "PAT-001", gender: "Male", phone: "+1 (555) 123-4567", lastVisit: "1/15/2024", prescriptions: 12 },
-  { id: "2", name: "Sarah Wilson", patientId: "PAT-002", gender: "Female", phone: "+1 (555) 234-5678", lastVisit: "1/10/2024", prescriptions: 5 },
-  { id: "3", name: "Michael Brown", patientId: "PAT-003", gender: "Male", phone: "+1 (555) 345-6789", lastVisit: "1/08/2024", prescriptions: 18 }
-]
-
 interface PatientDirectoryProps {
-  onPatientSelect: (patient: Patient) => void
+  // Using a mapped type for display purposes
+  onPatientSelect: (patient: { id: string; name: string; patientId: string; gender: string; phone: string; lastVisit: string; prescriptions: number; }) => void
 }
 
 const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) => {
   const [searchTerm, setSearchTerm] = useState("")
-  const [filteredPatients, setFilteredPatients] = useState<Patient[]>([])
 
   const debouncedSearchTerm = useDebounce(searchTerm, 2000)
   const shouldSearch = debouncedSearchTerm.length >= 3
@@ -47,32 +31,20 @@ const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) 
     { skip: !shouldSearch }
   )
 
-  useEffect(() => {
-    if (!shouldSearch) {
-      setFilteredPatients(allPatients || mockPatients)
-    } else {
-      if (searchResults && searchResults.length > 0) {
-        setFilteredPatients(
-          searchResults.map((p: any) => ({
-            id: p.id,
-            name: p.fullName,
-            patientId: p.referenceNumber,
-            gender: p.gender,
-            phone: p.phone,
-            lastVisit: p.createdAt.split("T")[0],
-            prescriptions: 0, // fallback if API doesn't return prescriptions
-          }))
-        )
-      } else if (searchError || !isSearching) {
-        const filtered = mockPatients.filter(
-          (patient) =>
-            patient.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-            patient.patientId.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-        )
-        setFilteredPatients(filtered)
-      }
-    }
-  }, [allPatients, searchResults, debouncedSearchTerm, shouldSearch, isSearching, searchError])
+  const patients = shouldSearch ? searchResults : allPatients;
+
+  const patientList = (patients || []).map((p) => ({
+    id: p.id,
+    name: p.fullName, // This will be the display name
+    patientId: p.referenceNumber,
+    gender: p.gender,
+    phone: p.phone,
+    lastVisit: new Date(p.createdAt).toLocaleDateString(),
+    prescriptions: 0, // fallback if API doesn't return prescriptions
+  }));
+
+  // When not searching, show only the 4 latest patients.
+  const displayList = shouldSearch ? patientList : patientList.slice(0, 4);
 
   return (
     <div className="rounded-xl p-6 shadow-sm" style={{ backgroundColor: "#FFFFFF" }}>
@@ -109,7 +81,7 @@ const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) 
         </div>
       )}
 
-      {filteredPatients.length === 0 && !isLoadingAll && !isSearching && (
+      {displayList.length === 0 && !isLoadingAll && !isSearching && (
         <div className="text-center py-8">
           <p className="text-sm opacity-70" style={{ color: "#29333D" }}>
             {searchTerm ? "No patients found matching your search." : "No patients found."}
@@ -117,7 +89,7 @@ const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) 
         </div>
       )}
 
-      {filteredPatients.length > 0 && (
+      {displayList.length > 0 && (
         <div className="overflow-hidden">
           <table className="w-full">
             <thead>
@@ -130,7 +102,7 @@ const PatientDirectory: React.FC<PatientDirectoryProps> = ({ onPatientSelect }) 
               </tr>
             </thead>
             <tbody>
-              {filteredPatients.map((patient) => (
+              {displayList.map((patient) => (
                 <tr
                   key={patient.id}
                   className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"

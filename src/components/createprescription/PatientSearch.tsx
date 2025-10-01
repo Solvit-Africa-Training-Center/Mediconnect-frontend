@@ -1,5 +1,5 @@
 import { Search } from "lucide-react"
-import { useState, useCallback, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useSearchPatientsQuery } from "../../Back-end/patient/patientApi"
 import { usePrescription } from "../../contexts/PrescriptionContext"
 import type { Patient } from "../../Types/patient/patient.types"
@@ -8,6 +8,8 @@ const PatientSearch = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const { prescription, setSelectedPatient } = usePrescription()
+  const [showResults, setShowResults] = useState(false)
+  const searchContainerRef = useRef<HTMLDivElement>(null)
   
   // Debounce search query
   useEffect(() => {
@@ -22,19 +24,22 @@ const PatientSearch = () => {
     { skip: debouncedQuery.length < 2 }
   )
   
-  // Debug logging
   useEffect(() => {
-    if (error) {
-      console.error('Patient search error:', error)
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setShowResults(false)
+      }
     }
-    if (searchResults) {
-      console.log('Patient search results:', searchResults)
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [error, searchResults])
+  }, [])
 
   const handlePatientSelect = (patient: Patient) => {
     setSelectedPatient(patient)
     setSearchQuery(patient.fullName)
+    setShowResults(false)
   }
 
   return (
@@ -42,13 +47,14 @@ const PatientSearch = () => {
       <h3 className="text-lg font-semibold text-[#29333D] mb-2">Patient Information</h3>
       <p className="text-[#29333D] opacity-70 mb-4">Search for patient by name or ID</p>
 
-      <div className="relative">
+      <div className="relative" ref={searchContainerRef}>
         <div className="flex gap-2">
           <input
             type="text"
             placeholder="Enter Patient Name or ID"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setShowResults(true)}
+            onChange={(e) => { setSearchQuery(e.target.value); setShowResults(true); }}
             className="flex-1 px-4 py-2 border border-[#D3D9DE] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0C7AE9] focus:border-transparent"
           />
           <button className="bg-[#0C7AE9] hover:bg-[#116FD4] text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
@@ -57,14 +63,14 @@ const PatientSearch = () => {
         </div>
 
         {/* Search Results Dropdown */}
-        {searchQuery.length >= 2 && (
+        {showResults && searchQuery.length >= 2 && (
           <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#D3D9DE] rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
             {isLoading ? (
               <div className="p-4 text-center text-gray-500">Searching...</div>
             ) : error ? (
               <div className="p-4 text-center text-red-500">Error searching patients</div>
-            ) : searchResults?.data?.length ? (
-              searchResults.data.map((patient: Patient) => (
+            ) : searchResults?.length ? (
+              searchResults.map((patient: Patient) => (
                 <div
                   key={patient.id}
                   onClick={() => handlePatientSelect(patient)}

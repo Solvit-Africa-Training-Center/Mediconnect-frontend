@@ -9,7 +9,7 @@ interface MedicineCardProps {
     dosage: string
     frequency: string
     duration: string
-    instructions: string
+    instructions?: string
   }
   onRemove: (id: string) => void
 }
