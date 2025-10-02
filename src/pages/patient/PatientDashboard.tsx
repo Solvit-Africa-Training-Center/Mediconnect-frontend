@@ -4,8 +4,24 @@ import MedicalInformation from "../../components/patientdashboard/MedicalInforma
 import MyPrescriptions from "../../components/patientdashboard/MyPrescriptions"
 import MedicalHistory from "../../components/patientdashboard/MedicalHistory"
 
+type User = {
+  id: string;
+  email: string;
+  fullName: string;
+  role: "patient" | "doctor" | "admin"; // can be expanded if there are other roles
+  phone: string;
+  patientId: string;
+};
+
+
 
 const PatientDashboard: React.FC = () => {
+
+  const storedUser = localStorage.getItem("user");
+  const loginUser: User | null = storedUser ? JSON.parse(storedUser) : null;
+
+  console.log(loginUser?.id);
+
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #29333D 0%, #131A20 100%)" }}>
       {/* Header */}

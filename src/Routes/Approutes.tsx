@@ -14,13 +14,41 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/doctor-dashboard/*" element={<ProtectedRoute requiredRole="doctor"><DoctorRoutes /></ProtectedRoute>} />
+      <Route
+        path="/doctor-dashboard/*"
+        element={
+          <ProtectedRoute requiredRole="doctor">
+            <DoctorRoutes />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/patient" element={<PatientLanding />} />
-      <Route path="/patient-dashboard" element={<ProtectedRoute requiredRole="patient"><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/medical-records-request" element={<ProtectedRoute requiredRole="patient"><MedicalRecordsRequest /></ProtectedRoute>} />
-      <Route path="/pharmacy/*" element={<ProtectedRoute requiredRole="pharmacist"><PharmacyLayout /></ProtectedRoute>}>
-      <Route index element={<PharmacyLayout />} /> 
-      <Route path="dashboard" element={<PharmacyRoutes />} />
+      <Route
+        path="/patient-dashboard"
+        element={
+          <ProtectedRoute requiredRole="patient">
+            <PatientDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/patient/medical-records-request"
+        element={
+          <ProtectedRoute requiredRole="patient">
+            <MedicalRecordsRequest />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pharmacy/*"
+        element={
+          <ProtectedRoute requiredRole="pharmacist">
+            <PharmacyLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<PharmacyLayout />} />
+        <Route path="dashboard" element={<PharmacyRoutes />} />
       </Route>
       <Route path="/PortalsSection" element={<PortalsSection />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
