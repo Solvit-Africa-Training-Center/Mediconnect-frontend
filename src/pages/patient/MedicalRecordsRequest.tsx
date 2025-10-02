@@ -115,10 +115,6 @@ const MedicalRecordsRequest: React.FC = () => {
             </div>
           </div>
         </div>
-        
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p>22 / 29</p>
-        </div>
       </div>
     </div>
   )

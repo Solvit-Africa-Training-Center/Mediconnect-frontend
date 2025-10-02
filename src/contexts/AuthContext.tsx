@@ -49,8 +49,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         navigate("/pharmacy-dashboard");
         break;
       default:
-        alert("Access denied. Invalid role.");
+        // If the role is not recognized, log out and redirect to home
         logout();
+        navigate("/");
     }
   };
 

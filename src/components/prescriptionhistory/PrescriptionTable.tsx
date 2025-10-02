@@ -69,7 +69,7 @@ const PrescriptionTable = () => {
             <tbody>
               <tr>
                 <td colSpan={6} className="text-center py-10">
-                  <p className="text-red-500">Failed to load prescriptions.</p>
+                  <p className="text-gray-500">No prescriptions available right now.</p>
                 </td>
               </tr>
             </tbody>
@@ -136,7 +136,7 @@ const PrescriptionTable = () => {
       <div className="px-6 py-4 border-t flex items-center justify-center" style={{ borderColor: "#D3D9DE" }}>
         <div className="flex items-center space-x-2">
           <button className="px-3 py-1 rounded text-sm" style={{ color: "#29333D" }}>
-            ‹
+            ??1
           </button>
           <button
             className="px-3 py-1 rounded text-sm font-medium"
@@ -145,7 +145,7 @@ const PrescriptionTable = () => {
             1
           </button>
           <button className="px-3 py-1 rounded text-sm" style={{ color: "#29333D" }}>
-            ›
+            ???
           </button>
         </div>
       </div>

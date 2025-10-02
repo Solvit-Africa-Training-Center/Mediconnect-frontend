@@ -10,8 +10,35 @@ const PatientLanding = () => {
   const navigate = useNavigate()
   const [showLoginModal, setShowLoginModal] = useState(false)
 
+  const features = [
+    {
+      icon: <Heart className="w-8 h-8 text-blue-600" />,
+      title: "Medical Records",
+      description: "Access your complete medical history, prescriptions, and health information securely.",
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-blue-600" />,
+      title: "Secure & Private",
+      description: "Your medical data is protected with Rwanda's highest security standards.",
+    },
+    {
+      icon: <Users className="w-8 h-8 text-blue-600" />,
+      title: "Doctor Collaboration",
+      description: "Seamless communication with your healthcare providers and medical team.",
+    },
+    {
+      icon: <QrCode className="w-8 h-8 text-blue-600" />,
+      title: "Digital Prescriptions",
+      description: "Receive and manage digital prescriptions with QR code verification.",
+    },
+  ]
+
   const handleDashboardAccess = () => {
-    setShowLoginModal(true)
+    if (user) {
+      navigate('/patient/dashboard')
+    } else {
+      setShowLoginModal(true)
+    }
   }
 
   return (
@@ -49,45 +76,17 @@ const PatientLanding = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow duration-200">
-              <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-blue-600" />
+            {features.map((feature, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow duration-200">
+                <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-blue-600 mb-4">{feature.title}</h3>
+                <p className="text-gray-600">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-blue-600 mb-4">Medical Records</h3>
-              <p className="text-gray-600">
-                Access your complete medical history, prescriptions, and health information securely.
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow duration-200">
-              <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-600 mb-4">Secure & Private</h3>
-              <p className="text-gray-600">
-                Your medical data is protected with Rwanda's highest security standards.
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow duration-200">
-              <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                <Users className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-600 mb-4">Doctor Collaboration</h3>
-              <p className="text-gray-600">
-                Seamless communication with your healthcare providers and medical team.
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow duration-200">
-              <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                <QrCode className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-blue-600 mb-4">Digital Prescriptions</h3>
-              <p className="text-gray-600">
-                Receive and manage digital prescriptions with QR code verification.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>

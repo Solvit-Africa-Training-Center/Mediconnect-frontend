@@ -1,7 +1,7 @@
 // PharmacyRoutes.tsx
 import { Route } from "react-router-dom";
 import PharmacyLayout from "./DashboardLayout";
-import PharmacyDashboard from "@/pages/pharmacy/PharmacyDashboard";
+import PharmacyDashboard from "@/pages/pharmacy/newpharmacie/phaemacieDashboard/page";
 import ScanPrescription from "./ScanPrescription";
 import DispensedRecords from "./DispensedRecords";
 import PharmacySettings from "./PharmacySettings";

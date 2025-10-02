@@ -1,28 +1,13 @@
 import type React from "react"
 import { User, FileText, Pill } from "lucide-react"
 import { useGetPatientByIdQuery, useGetPatientHistoryQuery, useGetPatientPrescriptionsQuery } from "../../Back-end/patient/patientApi"
+import type { Patient } from "../../Types/patient/patient.types"
 
 interface PatientDetailsProps {
   patient: Patient | null
 }
 
 const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
-  // Fetch real patient data when patient is selected
-  const { data: patientDetails, isLoading: isLoadingDetails } = useGetPatientByIdQuery(
-    patient?.id || "",
-    { skip: !patient?.id }
-  )
-  
-  const { data: patientHistory, isLoading: isLoadingHistory } = useGetPatientHistoryQuery(
-    patient?.id || "",
-    { skip: !patient?.id }
-  )
-  
-  const { data: patientPrescriptions, isLoading: isLoadingPrescriptions } = useGetPatientPrescriptionsQuery(
-    patient?.id || "",
-    { skip: !patient?.id }
-  )
-
   if (!patient) {
     return (
       <div
@@ -54,7 +39,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
           Patient Details
         </h3>
         <p style={{ color: "#29333D" }} className="text-sm opacity-70">
-          Detailed information for {patient.name}
+          Detailed information for {patient.fullName}
         </p>
       </div>
 
@@ -65,7 +50,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Patient Name
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patientDetails.fullName}
+              {patient.fullName}
             </p>
           </div>
           <div>
@@ -73,7 +58,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Patient ID
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patientDetails.referenceNumber}
+              {patient.referenceNumber}
             </p>
           </div>
         </div>
@@ -84,7 +69,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Gender
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {patientDetails.gender}
+              {patient.gender}
             </p>
           </div>
           <div>
@@ -92,7 +77,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Phone
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {patientDetails.phone}
+              {patient.phone}
             </p>
           </div>
         </div>
@@ -103,7 +88,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Last Visit
             </label>
             <p style={{ color: "#29333D" }} className="text-base">
-              {new Date(patientDetails.createdAt).toLocaleDateString()}
+              {new Date(patient.createdAt).toLocaleDateString()}
             </p>
           </div>
           <div>
@@ -111,7 +96,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
               Total Prescriptions
             </label>
             <p style={{ color: "#29333D" }} className="text-base font-medium">
-              {patientPrescriptions?.length ?? 0}
+              ...
             </p>
           </div>
         </div>
@@ -127,7 +112,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
                 </span>
               </div>
               <p style={{ color: "#29333D" }} className="text-lg font-semibold">
-                {isLoadingHistory ? "..." : patientHistory?.length || 0}
+                ...
               </p>
               <p style={{ color: "#29333D" }} className="text-xs opacity-70">
                 Total Records
@@ -142,7 +127,7 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
                 </span>
               </div>
               <p style={{ color: "#29333D" }} className="text-lg font-semibold">
-                {isLoadingPrescriptions ? "..." : patientPrescriptions?.length ?? 0}
+                ...
               </p>
               <p style={{ color: "#29333D" }} className="text-xs opacity-70">
                 Total Prescriptions
@@ -153,11 +138,8 @@ const PatientDetails: React.FC<PatientDetailsProps> = ({ patient }) => {
           <button
             style={{ backgroundColor: "#0C7AE9" }}
             className="w-full py-2 px-4 text-white rounded-lg hover:opacity-90 transition-opacity font-medium"
-            disabled={isLoadingDetails || isLoadingHistory || isLoadingPrescriptions}
           >
-            {isLoadingDetails || isLoadingHistory || isLoadingPrescriptions 
-              ? "Loading..." 
-              : "View Full Medical History"}
+            View Full Medical History
           </button>
         </div>
       </div>

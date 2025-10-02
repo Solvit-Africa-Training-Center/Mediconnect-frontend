@@ -20,8 +20,8 @@ const baseQueryWithErrorHandling: BaseQueryFn<
   const result = await baseQuery(args, api, extraOptions)
   
   if (result.error && result.error.status === 401) {
-    localStorage.removeItem("token")
-    window.location.href = "/unauthorized"
+    localStorage.removeItem("token");
+    window.location.href = "/";
   }
   
   return result

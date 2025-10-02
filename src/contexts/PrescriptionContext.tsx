@@ -1,117 +1,81 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
-import type { Patient } from '../Types/patient/patient.types'
-import type { Medication } from '../Types/prescription/prescription.types'
+import React, { createContext, useContext, useState, useMemo } from "react"
+import type { Patient } from "../Types/patient/patient.types"
+import type { Medication } from "../Types/prescription/prescription.types"
 
 interface PrescriptionState {
   selectedPatient: Patient | null
   diagnosis: string
   instructions: string
+  hospitalName: string
   medications: Medication[]
 }
 
 interface PrescriptionContextType {
   prescription: PrescriptionState
-  setSelectedPatient: (patient: Patient | null) => void
-  setDiagnosis: (diagnosis: string) => void
-  setInstructions: (instructions: string) => void
-  addMedication: (medication: Omit<Medication, 'id'>) => void
+  setPrescription: React.Dispatch<React.SetStateAction<PrescriptionState>>
+  addMedication: (medication: Omit<Medication, "id">) => void
   removeMedication: (id: string) => void
-  updateMedication: (id: string, medication: Partial<Medication>) => void
+  setSelectedPatient: (patient: Patient | null) => void
   clearPrescription: () => void
   isValid: boolean
 }
 
 const PrescriptionContext = createContext<PrescriptionContextType | undefined>(undefined)
 
-export const usePrescription = () => {
-  const context = useContext(PrescriptionContext)
-  if (!context) {
-    throw new Error('usePrescription must be used within PrescriptionProvider')
-  }
-  return context
+const initialState: PrescriptionState = {
+  selectedPatient: null,
+  diagnosis: "",
+  instructions: "",
+  hospitalName: "",
+  medications: [],
 }
 
-interface PrescriptionProviderProps {
-  children: ReactNode
-}
+export const PrescriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [prescription, setPrescription] = useState<PrescriptionState>(initialState)
 
-export const PrescriptionProvider = ({ children }: PrescriptionProviderProps) => {
-  const [prescription, setPrescription] = useState<PrescriptionState>({
-    selectedPatient: null,
-    diagnosis: '',
-    instructions: '',
-    medications: []
-  })
+  const isValid = useMemo(
+    () =>
+      !!prescription.selectedPatient &&
+      prescription.diagnosis.trim() !== "" &&
+      prescription.hospitalName.trim() !== "" &&
+      prescription.medications.length > 0,
+    [prescription]
+  )
 
-  const setSelectedPatient = (patient: Patient | null) => {
-    setPrescription(prev => ({ ...prev, selectedPatient: patient }))
-  }
-
-  const setDiagnosis = (diagnosis: string) => {
-    setPrescription(prev => ({ ...prev, diagnosis }))
-  }
-
-  const setInstructions = (instructions: string) => {
-    setPrescription(prev => ({ ...prev, instructions }))
-  }
-
-  const addMedication = (medication: Omit<Medication, 'id'>) => {
-    const newMedication: Medication = {
-      ...medication,
-      id: Date.now().toString()
-    }
-    setPrescription(prev => ({
-      ...prev,
-      medications: [...prev.medications, newMedication]
-    }))
+  const addMedication = (medication: Omit<Medication, "id">) => {
+    const newMedication = { ...medication, id: Date.now().toString() }
+    setPrescription((prev) => ({ ...prev, medications: [...prev.medications, newMedication] }))
   }
 
   const removeMedication = (id: string) => {
-    setPrescription(prev => ({
-      ...prev,
-      medications: prev.medications.filter(med => med.id !== id)
-    }))
+    setPrescription((prev) => ({ ...prev, medications: prev.medications.filter((med) => med.id !== id) }))
   }
 
-  const updateMedication = (id: string, updates: Partial<Medication>) => {
-    setPrescription(prev => ({
-      ...prev,
-      medications: prev.medications.map(med =>
-        med.id === id ? { ...med, ...updates } : med
-      )
-    }))
+  const setSelectedPatient = (patient: Patient | null) => {
+    setPrescription((prev) => ({ ...prev, selectedPatient: patient }))
   }
 
   const clearPrescription = () => {
-    setPrescription({
-      selectedPatient: null,
-      diagnosis: '',
-      instructions: '',
-      medications: []
-    })
+    setPrescription(initialState)
   }
-
-  const isValid = !!(
-    prescription.selectedPatient &&
-    prescription.diagnosis.trim() &&
-    prescription.medications.length > 0
-  )
 
   const value = {
     prescription,
-    setSelectedPatient,
-    setDiagnosis,
-    setInstructions,
+    setPrescription,
     addMedication,
     removeMedication,
-    updateMedication,
+    setSelectedPatient,
     clearPrescription,
-    isValid
+    isValid,
   }
 
-  return (
-    <PrescriptionContext.Provider value={value}>
-      {children}
-    </PrescriptionContext.Provider>
-  )
+  return <PrescriptionContext.Provider value={value}>{children}</PrescriptionContext.Provider>
+}
+
+export const usePrescription = () => {
+  const context = useContext(PrescriptionContext)
+  if (context === undefined) {
+    throw new Error("usePrescription must be used within a PrescriptionProvider")
+  }
+  return context
 }

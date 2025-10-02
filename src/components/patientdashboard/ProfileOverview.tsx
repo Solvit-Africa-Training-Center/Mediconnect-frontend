@@ -1,13 +1,14 @@
 import type React from "react"
 import { User, Calendar, Mail, Phone, Shield } from "lucide-react"
-import { useGetPatientByIdQuery } from "../../Back-end/patient/patientApi"
-import { useAuth } from "../../contexts/AuthContext"
+import { useGetPatientByUserIdQuery } from "../../Back-end/patient/patientApi"
+import { useSelector } from "react-redux"
+import { RootState } from "../../app/store"
 
 const ProfileOverview: React.FC = () => {
-  const { user } = useAuth()
-  const patientId = user?.id
-  const { data: patient, isLoading, error } = useGetPatientByIdQuery(patientId, {
-    skip: !patientId // Skip query if no patient ID
+  const user = useSelector((state: RootState) => state.auth.user)
+  const userId = user?.id
+  const { data: patient, isLoading, error } = useGetPatientByUserIdQuery(userId, {
+    skip: !userId, // Skip query if no user ID
   })
 
   if (isLoading) {

@@ -1,0 +1,25 @@
+[33m9c9e6a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmahoro[m[33m)[m adimport { QrCode, Settings, FileText, LayoutDashboard } from lucide-react
+[33m673c095[m t push origin mahoro
+[33m5baff3f[m removing unouthourised things
+[33m587cc4d[m updated setting
+[33m65b48ad[m working on prescription history
+[33me713108[m adding qorking on some core featuers
+[33ma795ed5[m working on Pharmacy
+[33m7d01b67[m[33m ([m[1;32mdev[m[33m)[m removing unneccessary codes
+[33mfa2350a[m  splitted login
+[33mf1f810e[m adding something
+[33m2f82eff[m created rtk query for backend integration
+[33mdd9a3dd[m tried to finish landing page
+[33mcb80401[m Merge branch 'feature/pacifique' into dev # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.
+[33me97afa3[m[33m ([m[1;31morigin/Mahoro[m[33m)[m adding some pages
+[33m1df47e1[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/feature/pacifique[m[33m, [m[1;32mmain[m[33m, [m[1;32mfeature/pacifique[m[33m)[m patient landing page and dashboard
+[33m6c3934d[m  Working on the Login
+[33ma3b3e41[m  removing unnecessary codes
+[33m72494b5[m making adjustments for the landing page
+[33mab54735[m add feature to doctor dashboard
+[33m518dfb5[m finishing homepage
+[33mbbfb9a7[m Doctor-Dashboard
+[33m0f9f897[m[33m ([m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mPaccy[m[33m)[m adding the interface
+[33maf6093b[m downgraded react 19 to 18 to support react router dom v6
+[33m4cdd43f[m initial commit
+[33m5e152f5[m first commit

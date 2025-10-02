@@ -17,7 +17,7 @@ const Header = ({ title, subtitle }: HeaderProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleLogout = () => {
-    logout
+    logout()
     // Force page reload to clear any cached state
     navigate("/")
     window.location.reload()

@@ -1,12 +1,13 @@
-import { useContext } from "react"
-import LoginContext from "../hooks/LoginContext"
-import { Shield, LogIn } from "lucide-react"
-import { useNavigate } from "react-router-dom"
-const Header = () => {
-  
-  const navigate = useNavigate() 
 
-  const handleLoginClick=() => {navigate ("/portalsSection")}
+import { Shield, LogIn } from "lucide-react"
+
+const Header = () => {
+  const handleLoginClick = () => {
+    const portalsSection = document.getElementById("portals");
+    if (portalsSection) {
+      portalsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 
   return (
     <header className="bg-foreground text-card-foreground">

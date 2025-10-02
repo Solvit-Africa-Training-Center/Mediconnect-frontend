@@ -1,76 +1,71 @@
-import { Save, Send } from "lucide-react"
 import { usePrescription } from "../../contexts/PrescriptionContext"
 import { useCreatePrescriptionMutation } from "../../Back-end/patient/patientApi"
-import { useGenerateQrCodeMutation } from "../../Back-end/qr-codes/qrCodeApi"
-import { useAuth } from "../../contexts/AuthContext"
-import { useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../app/store"
+import { useParams } from "react-router-dom"
 
 const PrescriptionActions = () => {
-  const { prescription, isValid, clearPrescription } = usePrescription()
-  const { user } = useAuth()
+  const { prescription, clearPrescription, isValid } = usePrescription()
   const [createPrescription, { isLoading }] = useCreatePrescriptionMutation()
-  const [generateQrCode] = useGenerateQrCodeMutation()
-  const [success, setSuccess] = useState(false)
-
+  const authUser = useSelector((state: RootState) => state.auth.user)
+  const { visitId } = useParams<{ visitId: string }>()
   const handleSubmit = async () => {
-    if (!isValid || !prescription.selectedPatient || !user) return
+    if (!isValid) {
+      console.error("Cannot submit, form is invalid. Please check diagnosis and medications.")
+      return
+    }
+    if (!authUser) {
+      console.error("Cannot submit, doctor profile is not loaded yet.")
+      return
+    }
 
+    const payload = {
+      // Use the actual doctorId from the logged-in user state
+      doctorId: authUser?.id || "",
+      visitId: visitId || "", // Use the visitId from the URL
+      hospitalName: prescription.hospitalName,
+
+      diagnosis: prescription.diagnosis,
+      doctorNotes: prescription.instructions,
+      items: prescription.medications.map(({ name, dosage, frequency, quantity, instructions }) => ({
+        medicineName: name,
+        dosage,
+        frequency,
+        quantity: Number(quantity),
+        instructions: instructions || "",
+      })),
+    }
+
+    // Log the payload to the console for debugging
+    console.log("Prescription Payload:", JSON.stringify(payload, null, 2))
+
+    if (!payload.doctorId || !payload.hospitalName) {
+      console.error("Doctor ID or Hospital Name is missing. Cannot create prescription.")
+      return
+    }
     try {
-      const prescriptionData = {
-        patientId: prescription.selectedPatient.id,
-        diagnosis: prescription.diagnosis,
-        medications: prescription.medications,
-        instructions: prescription.instructions
-      }
-
-      const result = await createPrescription(prescriptionData).unwrap()
-      
-      // Generate QR code for the prescription
-      await generateQrCode(result.id)
-      
-      setSuccess(true)
+      await createPrescription({ patientId: prescription.selectedPatient.id, data: payload }).unwrap()
+      console.log("Prescription created successfully!")
       clearPrescription()
-      
-      setTimeout(() => setSuccess(false), 3000)
-    } catch (error) {
-      console.error('Failed to create prescription:', error)
+    } catch (err) {
+      console.error("Failed to create prescription:", err)
     }
   }
 
-  if (success) {
-    return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-        <p className="text-green-600 font-medium">Prescription created successfully!</p>
-      </div>
-    )
-  }
-
   return (
-    <div className="flex gap-4 justify-end">
-      <button 
+    <div className="bg-white p-6 rounded-xl shadow-sm flex justify-end gap-4">
+      <button
         onClick={clearPrescription}
-        className="flex items-center gap-2 px-6 py-3 border border-[#D3D9DE] text-[#29333D] rounded-lg hover:bg-[#D3D9DE] hover:bg-opacity-30 transition-colors"
-        disabled={isLoading}
+        className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
       >
-        <Save size={18} />
-        Clear Form
+        Clear All
       </button>
-      <button 
+      <button
         onClick={handleSubmit}
-        disabled={!isValid || isLoading}
-        className="flex items-center gap-2 px-6 py-3 bg-[#0C7AE9] hover:bg-[#116FD4] text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={!isValid || !authUser || isLoading }
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {isLoading ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            Creating...
-          </>
-        ) : (
-          <>
-            <Send size={18} />
-            Create Prescription ({prescription.medications.length} medicines)
-          </>
-        )}
+        {isLoading ? "Submitting..." : "Submit Prescription"}
       </button>
     </div>
   )
