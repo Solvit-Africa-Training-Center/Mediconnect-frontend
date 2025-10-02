@@ -1,16 +1,15 @@
-
-import { BrowserRouter } from "react-router-dom"
+import AuthProvider from "./contexts/AuthContext"
+import { SidebarProvider } from "./contexts/SidebarContext"
 import AppRoutes from "./Routes/Approutes"
 
 function App() {
-  
-
   return (
-    
-        <BrowserRouter>
-          <AppRoutes/>
-        </BrowserRouter>
-   )
+    <AuthProvider>
+      <SidebarProvider>
+        <AppRoutes />
+      </SidebarProvider>
+    </AuthProvider>
+  )
 }
 
 export default App
