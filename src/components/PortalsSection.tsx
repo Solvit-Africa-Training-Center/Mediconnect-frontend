@@ -15,21 +15,23 @@ const PortalsSection = () => {
           <PortalCard
             icon={Users}
             title="Patient Portal"
-            description="Access prescriptions, get medication reminders, and chat with your healthcare provider."
+            description="A centralized health profile with personal details, chronic conditions, allergies, and past treatments"
             link="/patient"
           />
           <PortalCard
             icon={Stethoscope}
-            title="Doctor Dashboard"
-            description="Create secure digital prescriptions with allergy alerts, patient history and other medical information."
+            title="Doctor Portal"
+            description="Create digital prescriptions ,diagnosis
+            with allergy alerts ,patient history and other medical conditions"
             link="#"
             onClick={() => setIsDoctorLoginOpen(true)} // Open the Doctor Login Modal
           />
           <PortalCard
             icon={Pill}
-            title="Pharmacist Tools"
-            description="Verify prescriptions, manage drug inventory, scanner and track medication on dispensed."
-            link="#" // Remove direct link
+            title="Pharmacy Portal"
+            description="Verify prescriptions with QR
+            scanner and mark medications
+            as dispensed."
             onClick={() => setIsPharmacyLoginOpen(true)} // Open the Pharmacy Login Modal
           />
         </div>
