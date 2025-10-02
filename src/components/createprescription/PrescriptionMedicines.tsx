@@ -3,11 +3,9 @@ import { Plus } from "lucide-react"
 import MedicineCard from "./MedicineCard"
 import AddMedicineForm from "./AddMedicineForm"
 import { usePrescription } from "../../contexts/PrescriptionContext"
-
 const PrescriptionMedicines = () => {
   const { prescription, addMedication, removeMedication } = usePrescription()
   const [isAdding, setIsAdding] = useState(false)
-
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm">
       <h3 className="text-lg font-semibold text-[#29333D] mb-4">Prescription Medicines</h3>

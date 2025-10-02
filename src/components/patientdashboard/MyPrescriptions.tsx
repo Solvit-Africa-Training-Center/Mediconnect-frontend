@@ -2,10 +2,11 @@ import type React from "react"
 import { QrCode, Calendar, User, Pill } from "lucide-react"
 import { useGetPatientPrescriptionsQuery } from "../../Back-end/patient/patientApi"
 import type { Prescription } from "../../Types/prescription/prescription.types"
-import { useAuth } from "../../contexts/AuthContext"
+import { useSelector } from "react-redux"
+import { RootState } from "../../app/store"
 
 const MyPrescriptions: React.FC = () => {
-  const { user } = useAuth()
+  const user = useSelector((state: RootState) => state.auth.user)
   const patientId = user?.id
   const { data: prescriptions, isLoading, error } = useGetPatientPrescriptionsQuery(patientId, {
     skip: !patientId // Skip query if no patient ID
@@ -49,14 +50,14 @@ const MyPrescriptions: React.FC = () => {
         <h2 className="text-lg font-semibold text-[#29333D]">My Prescriptions</h2>
       </div>
 
-      {!prescriptions?.data?.length ? (
+      {!prescriptions?.length ? (
         <div className="text-center py-8">
           <QrCode className="w-12 h-12 text-gray-300 mx-auto mb-4" />
           <p className="text-sm text-[#29333D] opacity-70">No prescriptions found</p>
         </div>
       ) : (
         <div className="space-y-4">
-          {prescriptions.data.slice(0, 3).map((prescription: Prescription) => (
+          {prescriptions.slice(0, 3).map((prescription: Prescription) => (
             <div key={prescription.id} className="border border-gray-200 rounded-lg p-4">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
@@ -95,10 +96,10 @@ const MyPrescriptions: React.FC = () => {
             </div>
           ))}
           
-          {prescriptions.data.length > 3 && (
+          {prescriptions.length > 3 && (
             <div className="text-center pt-2">
               <button className="text-[#0C7AE9] text-sm hover:underline">
-                View all {prescriptions.data.length} prescriptions
+                View all {prescriptions.length} prescriptions
               </button>
             </div>
           )}

@@ -1,5 +1,5 @@
 import PatientSearch from "../../components/createprescription/PatientSearch"
-import DiagnosisNotes from "../../components/createprescription/DiagnosisNotes"
+import DiagnosisAndInstructions from "../../components/createprescription/DiagnosisAndInstructions"
 import PrescriptionMedicines from "../../components/createprescription/PrescriptionMedicines"
 import PrescriptionActions from "../../components/createprescription/PrescriptionActions"
 import PrescriptionSummary from "../../components/createprescription/PrescriptionSummary"
@@ -32,7 +32,7 @@ const CreatePrescriptionContent = () => {
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
             <div className="space-y-6 xl:col-span-2">
               <PatientSearch />
-              <DiagnosisNotes />
+              <DiagnosisAndInstructions />
               <PrescriptionMedicines />
             </div>
             <div className="relative">

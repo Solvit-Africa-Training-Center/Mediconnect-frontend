@@ -4,12 +4,11 @@ import AppRoutes from "./Routes/Approutes"
 
 function App() {
   return (
-    <SidebarProvider>
     <AuthProvider>
-      <AppRoutes />
+      <SidebarProvider>
+        <AppRoutes />
+      </SidebarProvider>
     </AuthProvider>
-
-    </SidebarProvider>
   )
 }
 

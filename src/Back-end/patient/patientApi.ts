@@ -39,9 +39,15 @@ export const patientApi = apiSlice.injectEndpoints({
     }),
     getPatientById: builder.query({
         query:(patientId)=>({
-            url:`/patients/${patientId}`,
+            url:`/api/v1/patients/${patientId}`,
             method:'GET'
         })
+    }),
+    getPatientByUserId: builder.query<Patient, string>({
+      query: (userId) => ({
+        url: `/api/v1/patients/user/${userId}`,
+        method: "GET",
+      }),
     }),
     updatePatient: builder.mutation({
         query:({patientId, data})=>({
@@ -50,11 +56,12 @@ export const patientApi = apiSlice.injectEndpoints({
             body:data
         })
     }),
-    getPatientHistory: builder.query({
-        query:(patientId)=>({
-            url:`/api/v1/patients/${patientId}/history`,
-            method:'GET'
-        })
+    getPatientHistory: builder.query<MedicalRecord[], string>({
+      query: (patientId) => ({
+        url: `/api/v1/patients/${patientId}/history`,
+        method: "GET",
+      }),
+      transformResponse: (response: { success: boolean; data: MedicalRecord[] }) => response.data,
     }),
     createPrescription: builder.mutation({
         query:({patientId, data})=>({
@@ -63,12 +70,13 @@ export const patientApi = apiSlice.injectEndpoints({
             body:data
         })
     }),
-    getPatientPrescriptions: builder.query({
-        query:(patientId)=>({
-            url:`/api/v1/patients/${patientId}/prescriptions`,
-            method:'GET'
-        }),
-        providesTags: ["Patient"]
+    getPatientPrescriptions: builder.query<Prescription[], string>({
+      query: (patientId) => ({
+        url: `/api/v1/patients/${patientId}/prescriptions`,
+        method: "GET",
+      }),
+      transformResponse: (response: { success: boolean; data: Prescription[] }) => response.data,
+      providesTags: ["Patient"],
     }),
     getPrescriptions: builder.query<any[], void>({
         query:()=>({
@@ -87,6 +95,7 @@ export const {
   useSearchPatientsQuery,
   useGetPatientByReferenceQuery,
   useGetPatientByIdQuery,
+  useGetPatientByUserIdQuery,
   useUpdatePatientMutation,
   useGetPatientHistoryQuery,
   useCreatePrescriptionMutation,
