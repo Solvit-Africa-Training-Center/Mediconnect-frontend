@@ -12,6 +12,8 @@ interface PharmacyLoginModalProps {
   onClose: () => void;
 }
 
+
+
 const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
   const authContext = useContext(AuthContext);
   const handleLogin = authContext?.login || (() => {});
@@ -24,6 +26,15 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
   });
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // login pharmacy logic
+
+  const handlePharmacyLogin=(e:React.FormEvent<HTMLFormElement>)=>{
+  e.preventDefault();
+  console.log('hello philos');
+  navigate('/PharmacyDashboard');
+  
+}
   
   useEffect(() => {
     if (isOpen) {
@@ -34,7 +45,7 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
     }
   }, [isOpen]);
   
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handlePharmacy = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     
@@ -62,7 +73,7 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
       }
       
       setFormData({ email: "", password: "" });
-      navigate('/pharmacy-dashboard');
+      navigate('/PharmacyDashboard');
       onClose();
       
     } catch (error: unknown) {
@@ -108,13 +119,12 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+        <form onSubmit={ handlePharmacyLogin} className="space-y-4" autoComplete="off">
           {errors.general && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
               <p className="text-red-600 text-sm">{errors.general}</p>
             </div>
           )}
-          
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
             <Input
@@ -148,16 +158,19 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
                 required
               />
               <button
-                type="button"
+                type="submit"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
-                onClick={() => setShowPassword(!showPassword)}
+                //onClick={() => navigate('/pharmacy')}
                 disabled={isLoading}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
+
+           
             </div>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
+           
 
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-2 text-sm text-gray-600">
@@ -196,7 +209,6 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
               </>
             )}
           </button>
-        </form>
 
         <button 
           onClick={onClose}
@@ -204,6 +216,7 @@ const PharmacyLoginModal = ({ isOpen, onClose }: PharmacyLoginModalProps) => {
         >
           ✕
         </button>
+        </form>
       </div>
     </div>
   );
